@@ -1,0 +1,43 @@
+@{ var currentController = (string)ViewContext.RouteData.Values["controller"]; }
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="@Url.Content("~/Content/assets/")" data-template="vertical-menu-template-free">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>@ViewBag.Title | HGRAS Operations</title><link rel="icon" type="image/png" href="@Url.Content("~/Content/img/hgras/logo.png")" />
+<link rel="stylesheet" href="~/Content/assets/vendor/fonts/boxicons.css" />
+<link rel="stylesheet" href="~/Content/assets/vendor/css/core.css" />
+<link rel="stylesheet" href="~/Content/assets/vendor/css/theme-default.css" />
+<link rel="stylesheet" href="~/Content/assets/css/demo.css" />
+<link rel="stylesheet" href="~/Content/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet" href="~/Content/pgh-ui.css?v=20261021-hgras" />
+<script src="~/Content/assets/vendor/js/helpers.js"></script><script src="~/Content/assets/js/config.js"></script>
+<style>
+body{background:#f4f7fa!important}.bg-menu-theme{background:#fff!important;border-right:1px solid #e4ebf0;box-shadow:none!important}.bg-menu-theme .menu-link{color:#657487!important}.bg-menu-theme .app-brand-text{color:#18354b!important;text-transform:none;font-size:21px}.bg-menu-theme .menu-item.active>.menu-link{background:#e9f5f3!important;color:#087f82!important;box-shadow:none!important}.menu-vertical .menu-item .menu-link{border-radius:9px;margin:4px 14px;padding:13px 15px}.menu-header{color:#9ba6b3!important;font-size:10px!important;letter-spacing:1.5px}.app-brand.demo{height:100px}.pgh-admin-mark{width:39px;height:39px;display:grid;place-items:center;background:#087f82;color:white;border-radius:12px;font-size:27px}.admin-brand-copy small{display:block;color:#8795a3;font-size:9px;letter-spacing:1.6px;margin-top:3px}.layout-navbar{background:#fff!important;box-shadow:none!important;border:1px solid #e7edf1;border-radius:13px!important;min-height:72px}.admin-nav-label{font-size:13px;font-weight:600;color:#1d3b50}.admin-nav-label small{display:block;font-size:11px;color:#82919e;font-weight:400;margin-top:3px}.admin-nav-date{color:#7a8a98;font-size:12px;margin-right:22px}.admin-sidebar-note{margin:28px 22px 20px;padding:18px;border-radius:14px;background:#f0f7f6;color:#617d80;font-size:11px;line-height:1.65}.admin-sidebar-note strong{display:block;color:#17646b;font-size:12px;margin-bottom:5px}.content-footer{color:#8493a1;font-size:11px}.admin-edit-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:25px}.admin-edit-heading h1{font-size:29px;margin:6px 0}.admin-edit-card{padding:30px}.admin-edit-card .form-control,.admin-edit-card select{max-width:100%}.admin-edit-card .form-horizontal .form-group{margin-bottom:20px}.admin-edit-card .control-label{margin-bottom:7px}@@media(max-width:650px){.admin-nav-date{display:none}.admin-edit-card{padding:20px}.admin-edit-heading{align-items:flex-start;flex-direction:column}}
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/hgras-charts.css")" /><script defer src="@Url.Content("~/Content/hgras-charts.js")"></script><link rel="stylesheet" href="@Url.Content("~/Content/hgras-network.css")" /><link rel="stylesheet" href="@Url.Content("~/Content/hgras-design.css?v=20261022")" /></head>
+<body><a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="layout-wrapper layout-content-navbar"><div class="layout-container">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<div class="app-brand demo"><a href="@Url.Action("Index", "Network")" class="app-brand-link"><img src="@Url.Content("~/Content/img/logo.png")" alt="HGRAS Healthcare Network logo" style="width:46px;height:51px;object-fit:contain" /><span class="admin-brand-copy"><span class="app-brand-text menu-text fw-bolder ms-2">HGRAS<span style="color:#087f82">.</span></span><small class="ms-2">RESOURCE OPERATIONS</small></span></a><a href="#" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none" aria-label="Close navigation"><i class="bx bx-chevron-left"></i></a></div>
+<div class="menu-inner-shadow"></div><ul class="menu-inner py-1">
+<li class="menu-header small text-uppercase"><span class="menu-header-text">Workspace</span></li><li class="menu-item"><a class="menu-link" href="@Url.Action("Index","Network")"><i class="menu-icon tf-icons bx bx-network-chart"></i><div>HGRAS hospital network</div></a></li>
+@foreach (var item in new[] { new { Controller="Network", Label="Network overview", Icon="bx-grid-alt" }, new { Controller="Requests", Label="Organisation requests", Icon="bx-transfer-alt" }, new { Controller="Resources", Label="Resource catalogue", Icon="bx-package" }, new { Controller="Companies", Label="Hospital network", Icon="bx-buildings" } }) {
+<li class="menu-item @(currentController == item.Controller ? "active" : "")"><a href="@Url.Action("Index", item.Controller)" class="menu-link"><i class="menu-icon bx @item.Icon"></i><div>@item.Label</div></a></li>
+}
+<li class="menu-header small text-uppercase"><span class="menu-header-text">Administration</span></li>
+<li class="menu-item @(currentController == "AspNetUsers" ? "active" : "")"><a href="@Url.Action("Index", "AspNetUsers", new { hasrole = true })" class="menu-link"><i class="menu-icon bx bx-user-circle"></i><div>System users</div></a></li>
+<li class="menu-item"><a href="@Url.Action("Index", "AspNetUsers", new { hasrole = false })" class="menu-link"><i class="menu-icon bx bx-group"></i><div>Hospital users</div></a></li>
+@foreach (var item in new[] { new { Controller="RequestStages", Label="Request stages", Icon="bx-git-branch" }, new { Controller="AspNetRoles", Label="Access roles", Icon="bx-shield-quarter" }, new { Controller="Notifications", Label="Notifications", Icon="bx-bell" } }) {
+<li class="menu-item @(currentController == item.Controller ? "active" : "")"><a href="@Url.Action("Index", item.Controller)" class="menu-link"><i class="menu-icon bx @item.Icon"></i><div>@item.Label</div></a></li>
+}
+</ul><div class="admin-sidebar-note"><strong><i class="bx bx-heart"></i> Connected for better care</strong>Helping the right resources reach the hospitals that need them.</div></aside>
+<div class="layout-page"><nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" aria-label="Workspace navigation"><div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 d-xl-none"><a class="nav-link px-0" href="#" aria-label="Open navigation"><i class="bx bx-menu bx-sm"></i></a></div><div class="navbar-nav-right d-flex align-items-center"><div class="admin-nav-label">Hospital resource management<small>Administration workspace</small></div><ul class="navbar-nav flex-row align-items-center ms-auto"><li class="admin-nav-date">@DateTime.Today.ToString("dddd, dd MMM yyyy")</li>@Html.Partial("_LoginPartial")</ul></div></nav>
+<div class="content-wrapper"><div id="main-content">@RenderBody()</div><footer class="content-footer footer bg-footer-theme"><div class="container-xxl d-flex flex-wrap justify-content-between py-4"><span>&copy; @DateTime.Today.Year HGRAS Resource Allocation</span><span>Supporting hospitals. Enabling care.</span></div></footer><div class="content-backdrop fade"></div></div></div></div><div class="layout-overlay layout-menu-toggle"></div></div>
+<script src="~/Content/assets/vendor/libs/jquery/jquery.js"></script><script src="~/Content/assets/vendor/libs/popper/popper.js"></script><script src="~/Content/assets/vendor/js/bootstrap.js"></script><script src="~/Content/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script><script src="~/Content/assets/vendor/js/menu.js"></script><script src="~/Content/assets/js/main.js"></script>
+@RenderSection("scripts", required: false)
+</body></html>
+
+
+
+
+

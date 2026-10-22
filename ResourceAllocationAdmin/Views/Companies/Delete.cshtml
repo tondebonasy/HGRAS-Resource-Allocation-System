@@ -1,0 +1,109 @@
+﻿@model ResourceAllocationAdmin.Models.Company
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Companies/</span>Create</h4>
+
+    
+    <div class="row">
+        
+        <div class="col-xxl">
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">@ViewBag.Title</h5>
+                    <small class="text-muted float-end"></small>
+                </div>
+                <div class="card-body">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Address)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PhoneNumber)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DateEstableshed)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DateEstableshed)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GroupHead)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.GroupHead)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RegNumber)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RegNumber)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PicUrl)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PicUrl)
+                        </dd>
+
+                    </dl>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Delete" class="btn btn-default" /> |
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

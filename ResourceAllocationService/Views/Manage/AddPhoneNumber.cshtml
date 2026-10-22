@@ -1,0 +1,38 @@
+﻿@model ResourceAllocationService.Models.AddPhoneNumberViewModel
+@{
+    ViewBag.Title = "Phone Number";
+}
+
+
+
+
+<div class="auth-wrapper">
+    <div class="auth-content">
+        <div class="card">
+            <div class="card-body text-left">
+                <a class="auth-content-logo-header" href="~/Home/Index"><img src="~/Content/img/logo.png" alt=""></a>
+
+                <h1 class="mb-4 auth-login-title"> Add a Phone number </h1>
+                @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                  
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        @Html.LabelFor(m => m.Number, new { @class = "col-md-12 col-form-label" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                       
+                        <div class=" col-md-12">
+                            <br />
+                            <input type="submit" class="btn btn-blackish-blue" value="Submit" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

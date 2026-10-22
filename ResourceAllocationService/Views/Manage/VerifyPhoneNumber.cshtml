@@ -1,0 +1,48 @@
+﻿@model ResourceAllocationService.Models.VerifyPhoneNumberViewModel
+@{
+    ViewBag.Title = "Verify Phone Number";
+}
+
+
+
+
+
+
+
+
+
+
+<div class="auth-wrapper">
+    <div class="auth-content">
+        <div class="card">
+            <div class="card-body text-left">
+                <a class="auth-content-logo-header" href="~/Home/Index"><img src="~/Content/img/logo.png" alt=""></a>
+
+                <h1 class="mb-4 auth-login-title"> Verify Phonenumber </h1>
+
+                @using (Html.BeginForm("VerifyPhoneNumber", "Manage", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("phoneNumber", @Model.PhoneNumber)
+                    <h4>Enter verification code</h4>
+                    <h5>@ViewBag.Status</h5>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 col-form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-md-2 col-md-10">
+                            <input type="submit" class="btn btn-outline-dark" value="Submit" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

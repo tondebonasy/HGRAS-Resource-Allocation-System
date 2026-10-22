@@ -1,0 +1,7 @@
+@using System.Collections.Generic
+@model IEnumerable<KeyValuePair<string,long>>
+<section class="hgras-chart-card" data-hgras-chart="@(ViewData["ChartType"]??"doughnut")">
+ <h2>@ViewData["Title"]</h2>
+ <div class="hgras-chart-layout"><div class="hgras-chart-visual" aria-hidden="true"></div><ul class="hgras-chart-legend" aria-label="@ViewData["Title"] values">@foreach(var point in Model){<li data-chart-label="@point.Key" data-chart-value="@point.Value"><span class="hgras-chart-dot"></span><span>@point.Key</span><strong>@point.Value</strong></li>}</ul></div>
+ <p class="hgras-chart-empty" hidden>No data yet.</p>
+</section>

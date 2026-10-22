@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navbar-nav navbar-right">
+    <li class="nav-item megamenu dropdown">
+        <a class="nav-link" href="#" role="button" id="services-megamenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()</a>
+        <div class="dropdown-menu coodiv-menu-dropdown" aria-labelledby="services-megamenu">
+            <div class="dropdown-menu-wrapper">
+                <div class="row justify-content-center bd-highlight mb-3 megamenu-items-header">
+
+                    <div class="col-md col-12 bd-highlight">
+                        <a class="megamenu-services-box" href="~/Companies/Details?name=@User.Identity.Name#requests">
+                            <i style="background-color: #ff2934;" class="fad fa-server"></i>
+                            <h5 class="coodiv-text-9 mb-0">Requests and Response Dashboard</h5>
+                            <p class="coodiv-text-12">Manage your Requests.</p>
+                        </a>
+                    </div>
+
+                    <div class="col-md col-12 bd-highlight">
+                        <a class="megamenu-services-box" href="~/Manage/Index">
+                            <i style="background-color: #fede48;" class="fad fa-hdd"></i>
+                            <h5 class="coodiv-text-9 mb-0">Account Management</h5>
+                            <p class="coodiv-text-12">Update your profile</p>
+                        </a>
+                    </div>
+
+                    <div class="col-md col-12 bd-highlight">
+                        <a class="megamenu-services-box" href="javascript:document.getElementById('logoutForm').submit()">
+                            <i class="fad fa-gamepad"></i>
+                            <h5 class="coodiv-text-9 mb-0">Log Out</h5>
+                            <p class="coodiv-text-12">We hate to see you go.</p>
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </li>
+  
+</ul>
+    }
+}
+else
+{
+    <ul class="header-user-info-coodiv">
+        <li class="dropdown">
+            <a role="button" id="header-login-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">sign in</a>
+            
+            <div class="dropdown-menu coodiv-dropdown-header user-login-dropdown" aria-labelledby="header-login-dropdown">
+                <form class="user-login-dropdown-form" action="~/Account/Login" data-form="validate">
+                    <div class="form-group username">
+                        <input type="email" name="username" placeholder="Your Email" class="form-control" />
+                        <i class="fal fa-at"></i>
+                    </div>
+
+                    <div class="form-group password">
+                        <input type="password" name="password" placeholder="Password" class="form-control" />
+                        <i class="fal fa-lock"></i>
+                    </div>
+
+                    <button data-toggle="tooltip" data-placement="left" title="login" class="user-login-dropdown-form-button" type="submit"><i class="fas fa-angle-right"></i></button>
+                </form>
+            </div>
+            
+        </li>
+    </ul>
+}

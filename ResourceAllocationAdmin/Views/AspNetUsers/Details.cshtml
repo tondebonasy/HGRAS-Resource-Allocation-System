@@ -1,0 +1,3 @@
+﻿@model ResourceAllocationAdmin.Models.AspNetUser
+@{ViewBag.Title="Account details";Layout="~/Views/Shared/EditsLayout.cshtml";}
+<h2>@Model.Email</h2><p class="pgh-muted">@(Model.Company==null?"Hospital staff":Model.Company.Name)</p><p><strong>Phone:</strong> @Model.PhoneNumber</p><p><strong>Roles:</strong> @String.Join(", ",Model.AspNetRoles.Select(r=>r.Name))</p><p><strong>Email confirmed:</strong> @(Model.EmailConfirmed?"Yes":"No")</p><div class="pgh-actions"><a class="pgh-button" href="@Url.Action("Edit",new{id=Model.Id})">Edit account →</a><a class="pgh-button secondary" href="@Url.Action("Delete",new{id=Model.Id})">Disable account</a><a class="pgh-button secondary" href="@Url.Action("Index",new{hasrole=!Model.CompanyId.HasValue})">Back to users</a></div>

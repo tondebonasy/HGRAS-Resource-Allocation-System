@@ -1,0 +1,7 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<main class="container-xxl flex-grow-1 container-p-y">
+<div class="admin-edit-heading"><div><p class="pgh-eyebrow" style="margin:0">Administration</p><h1>@ViewBag.Title</h1><p class="pgh-muted" style="margin:0">Manage hospital resources with confidence.</p></div><a class="pgh-button secondary" href="@Url.Action("Index", "Home")">Back to overview &rarr;</a></div>
+<div class="card admin-edit-card">@RenderBody()</div>
+</main>
+@section scripts { @RenderSection("scripts", required: false) }
+

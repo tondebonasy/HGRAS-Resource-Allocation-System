@@ -1,0 +1,53 @@
+@using System.Collections.Generic
+@model ResourceAllocationAdmin.Models.OperationsOverview
+@{ ViewBag.Title = "Operations overview"; }
+<style>
+.ops-header{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:26px}.ops-header h1{font-size:30px;letter-spacing:-1px;margin:6px 0 9px;color:#163b65}.ops-header p{margin:0;color:#8593a0;font-size:13px}.ops-welcome{background:#163b65;border-radius:18px;padding:32px 35px;color:#fff;display:flex;justify-content:space-between;gap:26px;align-items:center;margin-bottom:25px;position:relative;overflow:hidden}.ops-welcome:after{content:'+';position:absolute;right:35px;top:-54px;color:#ffffff08;font-size:260px;line-height:1;pointer-events:none}.ops-welcome h2{font-size:25px;color:white;max-width:480px;line-height:1.35;margin:9px 0}.ops-welcome p{font-size:13px;color:#c6d9e8;max-width:460px;line-height:1.8;margin:0}.ops-welcome a{position:relative;z-index:1;background:#fff!important;color:#163b65!important;border-color:white!important;white-space:nowrap}.ops-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:25px}.ops-stat{padding:24px;background:#fff;border:1px solid #e5ebf0;border-radius:14px}.ops-stat-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#e8f5f3;color:#087e8b;font-size:22px;margin-bottom:20px}.ops-stat:nth-child(2) .ops-stat-icon{background:#fff4e6;color:#bb852d}.ops-stat:nth-child(3) .ops-stat-icon{background:#edf1fb;color:#5475b5}.ops-stat:nth-child(4) .ops-stat-icon{background:#f0ebf8;color:#8e72b0}.ops-stat strong{display:block;font-size:31px;font-weight:650;letter-spacing:-1px;line-height:1.1;color:#193b54}.ops-stat span{display:block;font-size:12px;color:#7b8b99;margin-top:10px}.ops-columns{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:23px;align-items:start}.ops-card{background:#fff;border:1px solid #e5ebf0;border-radius:16px;overflow:hidden}.ops-card-header{padding:24px;display:flex;justify-content:space-between;align-items:center;gap:15px}.ops-card-header h2{font-size:17px;margin:0 0 5px;color:#25435b}.ops-card-header p{font-size:11px;color:#8997a3;margin:0}.ops-card-header a{font-size:11px;font-weight:600;white-space:nowrap}.ops-table{margin:0;font-size:12px}.ops-table th{font-size:9px!important;background:#f8fafb!important;color:#8d9aa6;letter-spacing:1px}.ops-table td{vertical-align:middle}.ops-table .ops-org{font-weight:600;color:#345066}.ops-table .ops-desc{display:block;color:#8b99a4;font-size:10px;margin-top:5px;max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ops-badge{display:inline-block;border-radius:6px;background:#fff4e6;color:#9c7537;font-size:9px;padding:6px 8px;max-width:150px;white-space:normal}.ops-badge.done{background:#e7f4ef;color:#368267}.ops-stage{padding:0 24px 20px}.ops-stage-line{display:flex;justify-content:space-between;font-size:11px;color:#687f90;margin-bottom:9px}.ops-progress{height:6px;background:#edf2f5;border-radius:9px;overflow:hidden}.ops-progress span{display:block;height:100%;background:#087e8b;border-radius:9px}.ops-quick{margin-top:22px;padding:24px}.ops-quick h2{font-size:16px;margin-bottom:20px}.ops-quick a{display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid #edf1f4;font-size:12px;color:#345066}.ops-quick a i{font-size:20px;color:#087e8b}.ops-quick a span{margin-left:auto}.ops-empty{padding:36px 24px;text-align:center;color:#8495a3;font-size:13px}.ops-empty i{display:block;font-size:36px;color:#adc5cd;margin-bottom:15px}.ops-empty strong{display:block;color:#345066;margin-bottom:8px}@@media(max-width:1100px){.ops-columns{grid-template-columns:1fr}.ops-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}@@media(max-width:600px){.ops-header,.ops-welcome{align-items:flex-start;flex-direction:column}.ops-header h1{font-size:25px}.ops-welcome{padding:26px}.ops-stat{padding:20px}.ops-stats{gap:12px}.ops-card-header{padding:20px}}
+</style>
+@{ var total=Model.Total;var completed=Model.Completed;var active=Model.Active;var submittedToday=Model.SubmittedToday;var hospitals=Model.Organisations;var resources=Model.Resources;var recent=Model.Recent;var stageCounts=Model.Stages; }
+ <main class="container-xxl flex-grow-1 container-p-y">
+ <div class="ops-header"><div><p class="pgh-eyebrow" style="font-size:10px;color:#087e8b">YOUR HOSPITAL NETWORK, AT A GLANCE</p><h1>Operations overview</h1><p>A clearer view of the resources that keep care moving.</p></div><a class="pgh-button" href="@Url.Action("Index", "Requests")"><i class="bx bx-transfer-alt"></i> Manage requests</a></div>
+ <section class="ops-welcome"><div><span style="font-size:10px;letter-spacing:1.6px;color:#9fcacb">HOSPITAL GROUP RESOURCE ALLOCATION SYSTEM</span><h2>Better connected.<br />Better equipped to care.</h2><p>Welcome, @User.Identity.Name. Coordinate requests, support your hospital network and put resources where they matter most.</p></div><a class="pgh-button" href="@Url.Action("Index", "Companies")">Explore hospital network &rarr;</a></section>
+ <div class="hgras-chart-grid">
+ @Html.Partial("_DashboardChart",Model.Stages.Select(stage=>new KeyValuePair<string,long>(stage.Name,stage.Count)).ToList(),new ViewDataDictionary{{"Title","Request status"},{"ChartType","doughnut"}})
+ @Html.Partial("_DashboardChart",new[]{new KeyValuePair<string,long>("Awaiting completion",Model.Active),new KeyValuePair<string,long>("Completed",Model.Completed),new KeyValuePair<string,long>("Submitted today",Model.SubmittedToday)},new ViewDataDictionary{{"Title","Request activity"},{"ChartType","bar"}})
+ </div><section class="ops-stats" aria-label="Resource request metrics">
+ <article class="ops-stat"><div class="ops-stat-icon"><i class="bx bx-transfer-alt" aria-hidden="true"></i></div><strong>@total</strong><span>Total resource requests</span></article>
+ <article class="ops-stat"><div class="ops-stat-icon"><i class="bx bx-time-five" aria-hidden="true"></i></div><strong>@active</strong><span>Awaiting completion</span></article>
+ <article class="ops-stat"><div class="ops-stat-icon"><i class="bx bx-calendar-check" aria-hidden="true"></i></div><strong>@submittedToday</strong><span>Submitted today</span></article>
+ <article class="ops-stat"><div class="ops-stat-icon"><i class="bx bx-buildings" aria-hidden="true"></i></div><strong>@hospitals</strong><span>Registered organisations</span></article>
+ </section>
+ @if(Model.LowStock>0){<div class="alert alert-warning" role="status">@Model.LowStock resources are at or below the low-stock threshold of 10. <a href="@Url.Action("Index","Resources")">Review stock</a></div>}<div class="ops-columns"><section class="ops-card"><div class="ops-card-header"><div><h2>Recent resource requests</h2><p>The latest activity across your hospital network</p></div><a href="@Url.Action("Index", "Requests")">View all requests &rarr;</a></div>
+ @if(recent.Count == 0) { <div class="ops-empty"><i class="bx bx-inbox"></i><strong>Your request queue is clear</strong>New hospital requests will appear here as they are submitted.</div> } else {
+ <div style="padding:0 24px 18px"><label for="recent-request-filter" style="display:block;font-size:11px;color:#728695;margin-bottom:7px">Find a recent request</label><input type="search" id="recent-request-filter" placeholder="Search hospital, request number or stage" class="form-control" style="width:100%;font-size:12px" aria-controls="recent-request-table" /><p id="recent-request-results" role="status" aria-live="polite" style="font-size:11px;color:#8395a2;margin:9px 0 0">Showing @recent.Count recent requests</p></div><div class="table-responsive"><table class="table ops-table" id="recent-request-table"><thead><tr><th>Request</th><th>Hospital / organisation</th><th>Stage</th><th>Received</th><th></th></tr></thead><tbody>
+ @foreach(var r in recent) { <tr><td style="font-weight:600;color:#345066">#@r.Id</td><td><span class="ops-org">@(r.Company == null ? "Unassigned" : r.Company.Name)</span><span class="ops-desc" title="@r.Description">@r.Description</span></td><td><span class="ops-badge @(r.RequestStage != null && r.RequestStage.Name == "COMPLETED" ? "done" : "")">@(r.RequestStage == null ? "Awaiting review" : r.RequestStage.Name)</span></td><td style="white-space:nowrap;color:#8493a1">@(r.DateRequested.HasValue ? r.DateRequested.Value.ToString("dd MMM yyyy") : "Not recorded")</td><td><a href="@Url.Action("Details", "Requests", new { id = r.Id })" aria-label="View request @r.Id"><i class="bx bx-right-arrow-alt" style="font-size:21px"></i></a></td></tr> }
+ </tbody></table></div> }
+ </section><aside><section class="ops-card"><div class="ops-card-header"><div><h2>Request pipeline</h2><p>@completed completed of @total total requests</p></div><i class="bx bx-pie-chart-alt-2" style="font-size:24px;color:#087e8b"></i></div>
+ @if (total == 0) { <div class="ops-empty">Stage summaries will appear once requests are submitted.</div> }
+ @foreach (var stage in stageCounts) { var percent = total == 0 ? 0 : (int)Math.Round(stage.Count * 100.0 / total); <div class="ops-stage"><div class="ops-stage-line"><span>@stage.Name</span><strong>@stage.Count</strong></div><div class="ops-progress" role="progressbar" aria-label="@stage.Name requests" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"><span style="width:@(percent)%"></span></div></div> }
+ </section><section class="ops-card ops-quick"><h2>Workspace shortcuts</h2><a href="@Url.Action("Index", "Resources")"><i class="bx bx-package"></i>Resource catalogue <small>(@resources)</small><span>&rarr;</span></a><a href="@Url.Action("Index", "Companies")"><i class="bx bx-buildings"></i>Hospital directory<span>&rarr;</span></a><a href="@Url.Action("Index", "AspNetUsers", new { hasrole = false })"><i class="bx bx-group"></i>Hospital users<span>&rarr;</span></a></section></aside></div>
+ </main>
+@section scripts {
+<script>
+(function () {
+    var search = document.getElementById('recent-request-filter');
+    if (!search) return;
+    var rows = document.querySelectorAll('#recent-request-table tbody tr');
+    var status = document.getElementById('recent-request-results');
+    search.addEventListener('input', function () {
+        var query = search.value.toLowerCase().trim();
+        var count = 0;
+        Array.prototype.forEach.call(rows, function (row) {
+            var matches = row.textContent.toLowerCase().indexOf(query) !== -1;
+            row.hidden = !matches;
+            if (matches) count++;
+        });
+        status.textContent = count ? 'Showing ' + count + ' of ' + rows.length + ' recent requests' : 'No recent requests match your search. View all requests to explore the complete queue.';
+    });
+})();
+</script>
+}
+
+
+
+

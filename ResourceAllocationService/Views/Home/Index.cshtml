@@ -1,0 +1,39 @@
+@{ ViewBag.Title = "Resources that support better care"; }
+<main class="hospital-home">
+ <section class="hospital-hero" aria-labelledby="hero-title">
+  <div class="hospital-hero-photo"><img src="@Url.Content("~/Content/img/hgras/reception.jpg")" alt="Hospital reception and welcome desk" fetchpriority="high" /></div>
+  <div class="pgh-wrap hospital-hero-inner">
+   <div class="hospital-hero-copy">
+    <p class="pgh-eyebrow"><span class="eyebrow-line"></span>Connected resources. Compassionate care.</p>
+    <h1 id="hero-title">The right resource.<br />The right hospital.<br /><em>The right time.</em></h1>
+    <p>One connected workspace for hospital groups to see available resources, coordinate safe allocations and follow transfers from request to receipt.</p>
+    <div class="pgh-actions"><a class="pgh-button" href="@Url.Action("Index", "Network", new { tab = "transfers" })">Open hospital network <i class="fas fa-arrow-right" aria-hidden="true"></i></a><a class="hero-link" href="@Url.Action("HelpCenter", "Home")">Explore the portal <span aria-hidden="true">↗</span></a></div>
+    <div class="hero-signature"><span class="hero-signature-icon"><i class="fas fa-hospital" aria-hidden="true"></i></span><span>Hospital Group Resource Allocation System<small>The right resource. The right hospital. The right time.</small></span></div>
+   </div>
+   <div class="hero-photo-caption"><span class="caption-dot"></span><div>Rooted in our community.<br /><strong>Connected through care.</strong></div></div>
+  </div>
+ </section>
+ <section class="pgh-wrap hospital-quicklinks" aria-label="Quick access">
+  <a href="@Url.Action("Index", "Network", new { tab = "transfers" })"><span class="quick-icon"><i class="fal fa-box-open" aria-hidden="true"></i></span><div><small>START HERE</small><h2>Coordinate a transfer</h2><p>Connect a hospital need with safely available stock.</p></div><span class="quick-arrow" aria-hidden="true">↗</span></a>
+  <a href="@Url.Action("Index", "Network")"><span class="quick-icon"><i class="fal fa-clipboard-list" aria-hidden="true"></i></span><div><small>STAY INFORMED</small><h2>Follow every handover</h2><p>Requests, dispatches and confirmed receipts.</p></div><span class="quick-arrow" aria-hidden="true">↗</span></a>
+  <a href="@Url.Action("HelpCenter", "Home")"><span class="quick-icon"><i class="fal fa-life-ring" aria-hidden="true"></i></span><div><small>WE'RE HERE TO HELP</small><h2>Find your next step</h2><p>A simple guide to using the portal.</p></div><span class="quick-arrow" aria-hidden="true">↗</span></a>
+ </section>
+ <section class="pgh-wrap hospital-intro">
+  <div><p class="pgh-eyebrow">Built around the work you do</p><h2>Less time coordinating.<br /><em>More focus on care.</em></h2></div>
+  <div><p class="section-lead">Good care depends on people having the resources they need. Our portal brings requests and their progress into one shared workflow.</p><p class="pgh-muted">From the first submission to confirmed receipt, your organisation can see where each request stands and keep its information up to date.</p><a class="pgh-text-link" href="@Url.Action("About", "Home")">Discover our purpose <span aria-hidden="true">→</span></a></div>
+ </section>
+ <section class="hospital-features"><div class="pgh-wrap">
+  <div class="section-heading"><div><p class="pgh-eyebrow">A clearer way to work together</p><h2>One portal. Every step connected.</h2></div><a class="pgh-text-link" href="@Url.Action("Login", "Account")">Access your account <span aria-hidden="true">↗</span></a></div>
+  <div class="hospital-feature-grid">
+   <article class="feature-photo-card"><img src="@Url.Content("~/Content/img/hgras/oxygen-equipment.jpg")" alt="Medical equipment in a clinical environment" loading="lazy" /><div><span class="pgh-eyebrow">Resource requests</span><h3>Make your needs<br />clear from the start.</h3><p>Select resources, specify quantities, and add the details that help reviewers understand your request.</p><a href="@Url.Action("Index", "Network", new { tab = "transfers" })">Create a request <span aria-hidden="true">↗</span></a></div></article>
+   <div class="feature-small-stack"><article class="feature-small-card"><span class="feature-circle"><i class="fal fa-route" aria-hidden="true"></i></span><h3>Clarity at every stage.</h3><p>Find your organisation's requests and check their latest review stage from your dashboard.</p><a href="@Url.Action("Index", "Network")">Open dashboard <span aria-hidden="true">→</span></a></article><article class="feature-small-card feature-small-tint"><span class="feature-circle"><i class="fal fa-users" aria-hidden="true"></i></span><h3>Your organisation, connected.</h3><p>Maintain your profile and contact details so the team has the right information when it matters.</p><a href="@Url.Action("Index", "Manage")">Manage your account <span aria-hidden="true">→</span></a></article></div>
+  </div>
+ </div></section>
+ <section class="pgh-wrap hospital-process" id="how-it-works">
+  <div class="section-heading"><div><p class="pgh-eyebrow">Simple from the first step</p><h2>From your request<br />to the next stage of care.</h2></div><p class="pgh-muted">A straightforward process.<br />A clear place to follow progress.</p></div>
+  <ol class="process-grid"><li><span>01</span><h3>Tell us what you need</h3><p>Sign in, select the resources you need and enter their quantities.</p></li><li><span>02</span><h3>Follow the review</h3><p>Check your dashboard to see the current stage of each request.</p></li><li><span>03</span><h3>Confirm delivery</h3><p>When resources are dispatched, use your request number and follow the team's instructions.</p></li></ol>
+ </section>
+ <section class="hospital-faq pgh-wrap"><div><p class="pgh-eyebrow">A little guidance</p><h2>Your questions,<br /><em>answered.</em></h2><a class="pgh-text-link" href="@Url.Action("HelpCenter", "Home")">Visit the help centre <span aria-hidden="true">↗</span></a></div><div class="faq-list"><details><summary>Who is this portal for?</summary><p>This portal is for registered organisations requesting resources through HGRAS, and the staff who review and coordinate those requests.</p></details><details><summary>How do I check the status of my request?</summary><p>Sign in, open your dashboard and select a request. Its current stage and requested resources are shown together.</p></details><details><summary>Can I change a request after submitting it?</summary><p>You can edit or delete a request while it is in the initial stage. Once review progresses, those actions are restricted.</p></details><details><summary>What do I need before getting started?</summary><p>Create an account with your organisation's details, then prepare a description, your resource selections and their quantities.</p></details></div></section>
+ <section class="pgh-wrap hospital-cta"><div><p class="pgh-eyebrow">Ready when you are</p><h2>Let's keep care moving.</h2><p>Your next resource request starts here.</p></div><a class="pgh-button" href="@Url.Action("Index", "Network", new { tab = "transfers" })">Get started <span aria-hidden="true">↗</span></a></section>
+</main>
+

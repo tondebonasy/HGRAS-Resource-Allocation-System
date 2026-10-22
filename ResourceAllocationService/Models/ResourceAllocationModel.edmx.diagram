@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7f314cc69ee74d84bad2306acb88d36c" Name="Diagram1">
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.AspNetUser" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.Company" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.Notification" Width="1.5" PointX="0.75" PointY="8.625" />
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.Request" Width="1.5" PointX="6" PointY="4.375" />
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.RequestStage" Width="1.5" PointX="3.75" PointY="1" />
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.Resource" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="ResourceDistrubitionDBModel.ResourceRequest" Width="1.5" PointX="8.25" PointY="4.75" />
+        <AssociationConnector Association="ResourceDistrubitionDBModel.FK_AspNetUsers_Company" />
+        <AssociationConnector Association="ResourceDistrubitionDBModel.FK_ResourceRequests_Company" />
+        <AssociationConnector Association="ResourceDistrubitionDBModel.FK_ResourceRequest_Request" />
+        <AssociationConnector Association="ResourceDistrubitionDBModel.FK_ResourceRequests_RequestStage" />
+        <AssociationConnector Association="ResourceDistrubitionDBModel.FK_ResourceRequest_Resource" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

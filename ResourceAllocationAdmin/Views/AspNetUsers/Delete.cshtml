@@ -1,0 +1,4 @@
+﻿@model ResourceAllocationAdmin.Models.AspNetUser
+@{ViewBag.Title="Disable account";Layout="~/Views/Shared/EditsLayout.cshtml";}
+<h2>Disable @Model.Email?</h2><p>The account record will be retained. Sign-in will be blocked, and existing sessions will expire when the security stamp is revalidated.</p>
+@using(Html.BeginForm()){@Html.AntiForgeryToken() @Html.HiddenFor(m=>m.Id)<div class="pgh-actions"><button class="pgh-button" type="submit">Disable account</button><a class="pgh-button secondary" href="@Url.Action("Details",new{id=Model.Id})">Cancel</a></div>}

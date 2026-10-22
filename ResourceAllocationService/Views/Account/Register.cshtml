@@ -1,0 +1,23 @@
+@model ResourceAllocationService.Models.RegisterViewModel
+@{ ViewBag.Title = "Register your organisation"; }
+<main>
+ <section class="pgh-page-banner"><div class="pgh-wrap"><div class="pgh-breadcrumb"><a href="@Url.Action("Index", "Home")">Home</a> / Register</div><p class="pgh-eyebrow">Let's get connected</p><h1>A shared place for your organisation's resources.</h1><p>Create your organisation's account to submit requests, follow progress and manage your details.</p></div></section>
+ <div class="pgh-wrap pgh-page-grid"><section class="pgh-panel" style="padding:32px">
+ @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+  @Html.AntiForgeryToken()
+  @Html.ValidationSummary(false, "", new { role = "alert" })
+  <div class="pgh-section-label">01 / Your account</div>
+  <div class="pgh-field">@Html.LabelFor(m => m.Email, "Account email address")@Html.TextBoxFor(m => m.Email, new { type = "email", autocomplete = "username", required = "required", placeholder = "you@organisation.com" })@Html.ValidationMessageFor(m => m.Email)</div>
+  <div class="pgh-field-grid"><div class="pgh-field">@Html.LabelFor(m => m.Password)@Html.PasswordFor(m => m.Password, new { autocomplete = "new-password", minlength = "6", required = "required" })@Html.ValidationMessageFor(m => m.Password)</div><div class="pgh-field">@Html.LabelFor(m => m.ConfirmPassword)@Html.PasswordFor(m => m.ConfirmPassword, new { autocomplete = "new-password", required = "required" })@Html.ValidationMessageFor(m => m.ConfirmPassword)</div></div>
+  <div class="pgh-section-label">02 / Organisation details</div>
+  <div class="pgh-field">@Html.LabelFor(m => m.CompanyName, "Organisation name")@Html.TextBoxFor(m => m.CompanyName, new { autocomplete = "organization", required = "required" })@Html.ValidationMessageFor(m => m.CompanyName)</div>
+  <div class="pgh-field-grid"><div class="pgh-field">@Html.LabelFor(m => m.CompanyEmail, "Organisation email")@Html.TextBoxFor(m => m.CompanyEmail, new { type = "email", required = "required" })@Html.ValidationMessageFor(m => m.CompanyEmail)</div><div class="pgh-field">@Html.LabelFor(m => m.CompanyPhoneNumber, "Phone number")@Html.TextBoxFor(m => m.CompanyPhoneNumber, new { type = "tel", autocomplete = "tel", required = "required" })@Html.ValidationMessageFor(m => m.CompanyPhoneNumber)</div></div>
+  <div class="pgh-field">@Html.LabelFor(m => m.CompanyHead, "Head of organisation")@Html.TextBoxFor(m => m.CompanyHead, new { required = "required" })@Html.ValidationMessageFor(m => m.CompanyHead)</div>
+  <div class="pgh-field-grid"><div class="pgh-field">@Html.LabelFor(m => m.RegNumber, "Registration number")@Html.TextBoxFor(m => m.RegNumber, new { required = "required" })@Html.ValidationMessageFor(m => m.RegNumber)</div><div class="pgh-field">@Html.LabelFor(m => m.DateEstablished, "Date established")@Html.TextBoxFor(m => m.DateEstablished, "{0:yyyy-MM-dd}", new { type = "date", required = "required" })@Html.ValidationMessageFor(m => m.DateEstablished)</div></div>
+  <div class="pgh-field">@Html.LabelFor(m => m.CompanyAddress, "Organisation address")@Html.TextAreaFor(m => m.CompanyAddress, new { required = "required", autocomplete = "street-address" })@Html.ValidationMessageFor(m => m.CompanyAddress)</div>
+  <div class="pgh-field"><label for="CompanyLogo">Organisation image (optional)</label><input type="file" id="CompanyLogo" name="CompanyLogo" accept="image/png,image/jpeg,image/gif" /><small class="pgh-muted">Choose a JPG, PNG or GIF image.</small></div>
+  <div class="pgh-actions"><button type="submit" class="pgh-button">Create account <span aria-hidden="true">→</span></button></div>
+ }
+ </section><aside class="pgh-info-card"><img class="pgh-info-image" src="@Url.Content("~/Content/img/hgras/hospital-exterior.jpg")" alt="Hospital exterior" /><p class="pgh-eyebrow">Before you begin</p><h2>Keep your team connected.</h2><p>Have your organisation's registration number and contact details ready. Use an email address you can access for your account.</p><p>Your organisation profile helps the resource allocation team identify and coordinate your requests.</p><hr /><p>Already have an account?</p><a class="pgh-text-link" href="@Url.Action("Login")">Sign in to your portal →</a></aside></div>
+</main>
+

@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Pgh.Workflow.RequestHistoryEntry>
+<section class="pgh-panel" style="margin-top:24px"><h2 style="font-size:21px">Request history</h2><p class="pgh-muted" style="font-size:12px">An audit trail of submission, reviews and fulfilment. Times are shown in UTC.</p>
+@if(Model==null || !Model.Any()) {<p class="pgh-muted">No history has been recorded for this request yet.</p>} else {
+ <ol style="list-style:none;padding:0;margin:24px 0 0">
+ @foreach(var entry in Model) {
+  <li style="border-left:2px solid #dce8ec;padding:0 0 24px 22px;margin-left:7px;position:relative"><span style="position:absolute;width:10px;height:10px;background:#087e8b;border-radius:50%;left:-6px;top:5px"></span><strong style="font-size:14px">@(String.IsNullOrWhiteSpace(entry.FromStage)?"Submitted":entry.FromStage+" → "+entry.ToStage)</strong><div style="font-size:11px;color:#748793;margin-top:5px">@entry.Actor · @entry.OccurredAtUtc.ToString("dd MMM yyyy HH:mm 'UTC'")</div>@if(!String.IsNullOrWhiteSpace(entry.Note)){<p style="font-size:13px;margin:9px 0 0;white-space:pre-wrap">@entry.Note</p>}</li>
+ }
+ </ol>
+}
+</section>

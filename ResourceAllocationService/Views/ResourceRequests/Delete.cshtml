@@ -1,0 +1,11 @@
+@model ResourceAllocationService.Models.Request
+@{ ViewBag.Title = "Delete request"; }
+<main class="pgh-shell pgh-form">
+ <p class="pgh-eyebrow">Request #@Model.Id</p><h1>Delete this request?</h1>
+ <div class="pgh-panel"><p><strong>@Model.Description</strong></p><p>This removes the request and its selected resources. You can submit a new request afterwards.</p>
+ @using(Html.BeginForm("Delete", "ResourceRequests", new { id = Model.Id }, FormMethod.Post)) {
+  @Html.AntiForgeryToken()
+  <div class="pgh-actions"><button type="submit" class="pgh-button">Delete request</button><a class="pgh-button secondary" href="@Url.Action("Edit", new { id = Model.Id })">Keep request</a></div>
+ }
+ </div>
+</main>

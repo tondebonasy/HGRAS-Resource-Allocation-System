@@ -1,0 +1,22 @@
+name: Build
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/setup-msbuild@v3
+      - uses: NuGet/setup-nuget@v3
+      - name: Prepare sanitised local configuration
+        shell: pwsh
+        run: |
+          Copy-Item ResourceAllocationService/Web.config.example ResourceAllocationService/Web.config
+          Copy-Item ResourceAllocationAdmin/Web.config.example ResourceAllocationAdmin/Web.config
+      - name: Restore packages
+        run: nuget restore ResourceAllocationService/ResourceAllocationService.sln -NonInteractive
+      - name: Build both portals and Razor views
+        run: msbuild ResourceAllocationService/ResourceAllocationService.sln /t:Build /p:Configuration=Release /p:MvcBuildViews=true /v:minimal /nologo

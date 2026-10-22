@@ -1,0 +1,11 @@
+﻿@model ResourceAllocationAdmin.Models.Request
+@{ ViewBag.Title="Review request #"+Model.Id;Layout="~/Views/Shared/EditsLayout.cshtml"; }
+<div class="pgh-form"><p class="pgh-eyebrow">Role-specific review</p><h2>@Model.Description</h2><p><strong>Current stage:</strong> @(Model.RequestStage==null?"Unassigned":Model.RequestStage.Name)</p><p class="pgh-muted">Only transitions permitted for your role are available. Approval reserves stock atomically; later stages do not deduct it again.</p>
+@using(Html.BeginForm()) {
+ @Html.AntiForgeryToken()<input type="hidden" name="id" value="@Model.Id" /><input type="hidden" name="ExpectedStageId" value="@Model.StageId" />
+ @Html.ValidationSummary(false,"",new{role="alert"})
+ <div class="pgh-field"><label for="StageId">Next stage</label>@Html.DropDownList("StageId",null,"Select an action",new{@class="form-control",required="required"})</div>
+ <div class="pgh-field"><label for="Note">Review note</label><textarea id="Note" name="Note" maxlength="1000" placeholder="Explain your decision or add collection instructions. Required for rejection.">@Request.Form["Note"]</textarea></div>
+ <div class="pgh-actions"><button class="pgh-button" type="submit">Confirm transition →</button><a class="pgh-button secondary" href="@Url.Action("Details",new{id=Model.Id})">Cancel</a></div>
+}
+</div>

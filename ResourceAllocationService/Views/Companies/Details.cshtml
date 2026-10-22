@@ -1,0 +1,95 @@
+@using System.Collections.Generic
+@model ResourceAllocationService.Models.Company
+@{
+    ViewBag.Title = "Organisation dashboard";
+    var requests = Model == null || Model.Requests == null ? new List<ResourceAllocationService.Models.Request>() : Model.Requests.OrderByDescending(r => r.DateRequested).ToList();
+    var submitted = requests.Count(r => r.RequestStage == null || r.RequestStage.StageLevel == 1);
+    var advanced = requests.Count(r => r.RequestStage != null && r.RequestStage.StageLevel > 1);
+    var stages = requests.Select(r => r.RequestStage == null || string.IsNullOrWhiteSpace(r.RequestStage.Name) ? "Awaiting review" : r.RequestStage.Name).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(s => s).ToList();
+    var resourceLines = requests.Sum(r => r.ResourceRequests == null ? 0 : r.ResourceRequests.Count);
+}
+<style>
+.org-dashboard{max-width:1280px;margin:auto;padding:42px 28px 64px;color:#173447}.org-dashboard .org-label{font-size:11px;font-weight:750;letter-spacing:1.8px;text-transform:uppercase;color:#467780;margin:0 0 12px}.org-header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:30px}.org-header h1{font-size:clamp(28px,4vw,40px);letter-spacing:-1.4px;margin:0 0 12px}.org-header p{color:#627583;margin-bottom:0}.org-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:28px}.org-stat,.org-card{background:#fff;border:1px solid #e1e9ec;border-radius:18px;box-shadow:0 5px 22px rgba(25,55,70,.025)}.org-stat{padding:24px}.org-stat-top{display:flex;justify-content:space-between;align-items:center;color:#617683;font-size:13px}.org-stat i{background:#edf6f5;color:#18786f;padding:12px;border-radius:12px}.org-stat strong{display:block;font-size:36px;letter-spacing:-1px;line-height:1.2;margin:14px 0 6px}.org-stat small{color:#7a8d98;font-size:12px}.org-content{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}.org-card{overflow:hidden}.org-card-heading{padding:25px 26px;border-bottom:1px solid #edf1f3;display:flex;align-items:center;justify-content:space-between;gap:12px}.org-card-heading h2{font-size:20px;margin:0 0 5px;letter-spacing:-.5px}.org-card-heading p{font-size:13px;color:#73838d;margin:0}.org-table{width:100%;border-collapse:collapse}.org-table th{background:#f7fafb;color:#70838e;text-transform:uppercase;letter-spacing:.8px;font-size:10px;padding:16px 24px;font-weight:700;text-align:left}.org-table td{padding:21px 24px;border-bottom:1px solid #edf1f3;font-size:13px;vertical-align:middle}.org-table tbody tr:last-child td{border-bottom:0}.org-request-title{display:block;font-weight:650;color:#183c51;max-width:290px;overflow-wrap:anywhere}.org-request-id{display:block;font-size:11px;color:#7f919c;margin-top:5px}.org-badge{display:inline-flex;align-items:center;gap:6px;border-radius:30px;padding:6px 10px;background:#edf5f4;color:#247467;font-size:11px;font-weight:650;white-space:normal}.org-badge.pending{background:#fff5e2;color:#966b21}.org-badge:before{content:'';width:6px;height:6px;background:currentColor;border-radius:50%;flex-shrink:0}.org-link{font-size:12px;color:#126f6b;font-weight:700;white-space:nowrap}.org-profile{padding:25px}.org-profile-icon{width:46px;height:46px;border-radius:13px;background:#ecf4f4;color:#217e76;display:grid;place-items:center;font-size:20px;margin-bottom:18px}.org-profile h2{font-size:18px;line-height:1.4;margin:0 0 6px}.org-profile dl{margin:24px 0}.org-profile dt{font-size:10px;color:#7d8f99;letter-spacing:1px;text-transform:uppercase;margin-top:20px}.org-profile dd{font-size:13px;color:#304e60;margin:6px 0 0;overflow-wrap:anywhere}.org-note{margin-top:20px;background:#edf6f5;border-radius:18px;padding:24px;color:#52736f;font-size:13px;line-height:1.7}.org-note strong{display:block;color:#1c605c;margin-bottom:8px}.org-empty{text-align:center;padding:65px 24px}.org-empty i{font-size:30px;color:#26877c;margin-bottom:18px}.org-empty h3{font-size:21px}.org-empty p{color:#748793;max-width:350px;margin:10px auto 24px}.org-card .table-responsive{margin:0}.org-count{font-size:11px;padding:6px 11px;border-radius:20px;background:#f0f5f7;color:#567180}@@media(max-width:1000px){.org-content{grid-template-columns:1fr}.org-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.org-profile dl{display:grid;grid-template-columns:1fr 1fr;gap:0 25px}.org-profile dl div{min-width:0}}@@media(max-width:600px){.org-dashboard{padding:28px 16px 40px}.org-header{align-items:flex-start;flex-direction:column}.org-stats{gap:10px}.org-stat{padding:16px}.org-stat strong{font-size:29px}.org-stat-top i{display:none}.org-table td,.org-table th{padding:16px}.org-card-heading{padding:22px 18px}}
+.org-header{background:linear-gradient(115deg,#133748,#205667);border-radius:20px;padding:34px;color:#fff;box-shadow:0 8px 22px rgba(15,49,65,.09)}.org-header h1{color:#fff}.org-header p{color:#d4e3e7}.org-header .org-label{color:#9cd8d0}.org-header .pgh-button{background:#fff;color:#155b59;border-color:#fff;flex-shrink:0}.org-filters{display:flex;gap:14px;align-items:end;flex-wrap:wrap;padding:20px 24px;border-bottom:1px solid #edf1f3;background:#fff}.org-filter-field{flex:1;min-width:175px}.org-filter-field label{display:block;font-size:11px;color:#597482;font-weight:650;margin-bottom:7px}.org-filter-field input,.org-filter-field select{width:100%;min-height:42px;border:1px solid #dce6e9;border-radius:9px;background:#f9fbfc;color:#294e60;font:inherit;font-size:12px;padding:10px 12px}.org-filter-field input:focus,.org-filter-field select:focus{outline:2px solid #25877a;outline-offset:2px}.org-filter-reset{font:inherit;font-size:12px;color:#226f66;background:#fff;border:1px solid #dce6e9;border-radius:9px;min-height:42px;padding:10px 14px;font-weight:650}.org-filter-result{margin:0;padding:12px 24px;font-size:11px;color:#718993;border-bottom:1px solid #edf1f3}.org-card .table-responsive{overflow-x:auto;max-width:100%}.org-table{min-width:580px}.org-no-results{padding:40px 24px;text-align:center;color:#69818d}.org-no-results strong{display:block;color:#244b5b;margin-bottom:8px}.org-dashboard [hidden]{display:none!important}@@media(max-width:600px){.org-header{padding:25px 20px}.org-filters{padding:18px}.org-filter-field{min-width:100%}}
+</style>
+<main class="org-dashboard">
+    <div class="org-header">
+        <div><p class="org-label">HGRAS resource portal / Dashboard</p><h1>Your resources. In focus.</h1><p>Welcome back@(Model == null || string.IsNullOrWhiteSpace(Model.Name) ? "." : ", " + Model.Name + ".") Track every request in one place.</p></div>
+        <a class="pgh-button" href="@Url.Action("Create", "ResourceRequests")"><i class="fas fa-plus" aria-hidden="true"></i> New resource request</a>
+    </div>
+    <section class="org-stats" aria-label="Request summary">
+        <div class="org-stat"><div class="org-stat-top">Total requests <i class="fas fa-layer-group" aria-hidden="true"></i></div><strong>@requests.Count</strong><small>Your complete request history</small></div>
+        <div class="org-stat"><div class="org-stat-top">Awaiting review <i class="far fa-clock" aria-hidden="true"></i></div><strong>@submitted</strong><small>At the initial review stage</small></div>
+        <div class="org-stat"><div class="org-stat-top">Progressed requests <i class="fas fa-route" aria-hidden="true"></i></div><strong>@advanced</strong><small>Beyond the initial stage</small></div>
+        <div class="org-stat"><div class="org-stat-top">Resource entries <i class="fas fa-boxes" aria-hidden="true"></i></div><strong>@resourceLines</strong><small>Across all your requests</small></div>
+    </section>
+    <div class="hgras-chart-grid">
+ @Html.Partial("_DashboardChart",requests.GroupBy(r=>r.RequestStage==null?"Awaiting review":r.RequestStage.Name).Select(stage=>new KeyValuePair<string,long>(stage.Key,stage.LongCount())).ToList(),new ViewDataDictionary{{"Title","Request status"},{"ChartType","doughnut"}})
+ @Html.Partial("_DashboardChart",Enumerable.Range(0,6).Select(index=>new DateTime(DateTime.Today.Year,DateTime.Today.Month,1).AddMonths(index-5)).Select(month=>new KeyValuePair<string,long>(month.ToString("MMM yyyy"),requests.LongCount(r=>r.DateRequested.HasValue&&r.DateRequested.Value>=month&&r.DateRequested.Value<month.AddMonths(1)))).ToList(),new ViewDataDictionary{{"Title","Requests by month"},{"ChartType","bar"}})
+ </div><div class="org-content">
+        <section class="org-card" id="requests">
+            <div class="org-card-heading"><div><h2>Resource requests</h2><p>Your latest submissions and their current status.</p></div><span class="org-count">@requests.Count total</span></div>
+            @if (!requests.Any()) {
+                <div class="org-empty"><i class="fas fa-clipboard-list" aria-hidden="true"></i><h3>Let's get your resources moving</h3><p>Submit your first resource request. You can follow its progress right here.</p><a class="pgh-button" href="@Url.Action("Create", "ResourceRequests")">Create your first request &rarr;</a></div>
+            } else {
+                <div class="org-filters" role="search" aria-label="Filter your resource requests">
+                    <div class="org-filter-field"><label for="org-request-search">Search requests</label><input id="org-request-search" type="search" placeholder="Search by description or reference" autocomplete="off" aria-controls="org-request-table" /></div>
+                    <div class="org-filter-field"><label for="org-request-status">Request status</label><select id="org-request-status" aria-controls="org-request-table"><option value="">All statuses</option>@foreach(var stage in stages) { <option value="@stage">@stage</option> }</select></div>
+                    <button class="org-filter-reset" type="button" id="org-reset-filters">Clear filters</button>
+                </div>
+                <p class="org-filter-result" id="org-filter-result" role="status" aria-live="polite">Showing @requests.Count of @requests.Count requests</p>
+                <div class="table-responsive"><table class="org-table" id="org-request-table"><thead><tr><th scope="col">Request</th><th scope="col">Submitted</th><th scope="col">Status</th><th scope="col">Details</th></tr></thead><tbody>
+                @foreach(var item in requests) {
+                    var initial = item.RequestStage == null || item.RequestStage.StageLevel == 1;
+                    <tr data-request-row data-request-status="@(item.RequestStage == null || string.IsNullOrWhiteSpace(item.RequestStage.Name) ? "Awaiting review" : item.RequestStage.Name)"><td><span class="org-request-title">@(string.IsNullOrWhiteSpace(item.Description) ? "Resource request" : item.Description)</span><span class="org-request-id">REQ-@item.Id</span></td><td style="white-space:nowrap">@(item.DateRequested.HasValue ? item.DateRequested.Value.ToString("dd MMM yyyy") : "Not recorded")</td><td><span class="org-badge @(initial ? "pending" : "")">@(item.RequestStage == null || string.IsNullOrWhiteSpace(item.RequestStage.Name) ? "Awaiting review" : item.RequestStage.Name)</span></td><td><a class="org-link" href="@Url.Action("Details", "ResourceRequests", new { id = item.Id })" aria-label="View request @item.Id">View &rarr;</a></td></tr>
+                }
+                </tbody></table></div>
+                <div class="org-no-results" id="org-no-results" hidden><strong>No matching requests</strong>Try another description, reference, or status.</div>
+            }
+        </section>
+        <aside>
+            <section class="org-card org-profile"><div class="org-profile-icon"><i class="far fa-hospital" aria-hidden="true"></i></div><p class="org-label">Organisation profile</p><h2>@(Model == null || string.IsNullOrWhiteSpace(Model.Name) ? "Your organisation" : Model.Name)</h2><dl>
+            <div><dt>Contact person</dt><dd>@(Model == null || string.IsNullOrWhiteSpace(Model.GroupHead) ? "Not provided" : Model.GroupHead)</dd></div>
+            <div><dt>Email address</dt><dd>@(Model == null || string.IsNullOrWhiteSpace(Model.Email) ? "Not provided" : Model.Email)</dd></div>
+            <div><dt>Phone number</dt><dd>@(Model == null || string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "Not provided" : Model.PhoneNumber)</dd></div>
+            <div><dt>Location</dt><dd>@(Model == null || string.IsNullOrWhiteSpace(Model.Address) ? "Not provided" : Model.Address)</dd></div>
+            </dl><a class="org-link" href="@Url.Action("Edit", new { name = User.Identity.Name })">Manage organisation &rarr;</a></section>
+            
+        </aside>
+    </div>
+</main>
+
+@section scripts {
+<script>
+(function () {
+    var search = document.getElementById('org-request-search');
+    var status = document.getElementById('org-request-status');
+    if (!search || !status) return;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('[data-request-row]'));
+    var feedback = document.getElementById('org-filter-result');
+    var empty = document.getElementById('org-no-results');
+    function filterRequests() {
+        var term = search.value.trim().toLowerCase();
+        var selected = status.value.toLowerCase();
+        var count = 0;
+        rows.forEach(function (row) {
+            var matches = row.textContent.toLowerCase().indexOf(term) !== -1 && (!selected || row.getAttribute('data-request-status').toLowerCase() === selected);
+            row.hidden = !matches;
+            if (matches) count++;
+        });
+        feedback.textContent = 'Showing ' + count + ' of ' + rows.length + ' requests';
+        empty.hidden = count !== 0;
+    }
+    search.addEventListener('input', filterRequests);
+    status.addEventListener('change', filterRequests);
+    document.getElementById('org-reset-filters').addEventListener('click', function () {
+        search.value = '';
+        status.value = '';
+        filterRequests();
+        search.focus();
+    });
+    filterRequests();
+})();
+</script>
+}
+

@@ -1,0 +1,12 @@
+﻿@model ResourceAllocationAdmin.Models.Resource
+@{ViewBag.Title=Model!=null&&Model.id!=0?"Manage resource stock":"Add a resource";Layout="~/Views/Shared/EditsLayout.cshtml";}
+@using(Html.BeginForm()){
+ @Html.AntiForgeryToken() @Html.HiddenFor(m=>m.id)
+ <input type="hidden" name="ExpectedQuantity" value="@(Model==null?"":Model.Quantity.ToString())" />
+ @Html.ValidationSummary(false,"",new{role="alert"})
+ <p class="pgh-muted">Available stock excludes quantities already allocated to approved requests. A concurrent approval will prevent a stale stock update.</p>
+ <div class="pgh-field">@Html.LabelFor(m=>m.Name,"Resource name")@Html.TextBoxFor(m=>m.Name,new{required="required",maxlength="50"})@Html.ValidationMessageFor(m=>m.Name)</div>
+ <div class="pgh-field">@Html.LabelFor(m=>m.Description)@Html.TextAreaFor(m=>m.Description,new{maxlength="225"})</div>
+ <div class="pgh-field">@Html.LabelFor(m=>m.Quantity,"Available quantity")@Html.TextBoxFor(m=>m.Quantity,new{type="number",min="0",step="1",required="required"})@Html.ValidationMessageFor(m=>m.Quantity)</div>
+ <div class="pgh-actions"><button class="pgh-button" type="submit">Save resource →</button><a class="pgh-button secondary" href="@Url.Action("Index")">Cancel</a></div>
+}

@@ -1,0 +1,11 @@
+﻿@model ResourceAllocationAdmin.Models.AspNetUser
+@{ViewBag.Title="Edit user account";Layout="~/Views/Shared/EditsLayout.cshtml";}
+<h2>@Model.Email</h2><p class="pgh-muted">Passwords and security tokens are managed by ASP.NET Identity and are not editable here.</p>
+@using(Html.BeginForm()){
+ @Html.AntiForgeryToken() @Html.HiddenFor(m=>m.Id)
+ @Html.ValidationSummary(false,"",new{role="alert"})
+ <div class="pgh-field">@Html.LabelFor(m=>m.PhoneNumber,"Phone number")@Html.TextBoxFor(m=>m.PhoneNumber,new{maxlength="50"})</div>
+ if(!Model.CompanyId.HasValue){<fieldset><legend style="font-size:17px">Staff roles</legend>@foreach(ResourceAllocationAdmin.Models.AspNetRole role in ViewBag.Roles){<label style="display:block;margin:14px 0"><input type="checkbox" name="SelectedRoles" value="@role.Id" checked="@Model.AspNetRoles.Any(r=>r.Id==role.Id)" /> @role.Name</label>}</fieldset>}
+ <div style="margin-top:22px"><label>@Html.CheckBox("Enabled",!(Model.LockoutEndDateUtc>DateTime.UtcNow)) Account enabled</label></div><div class="pgh-actions"><button class="pgh-button" type="submit">Save account →</button><a class="pgh-button secondary" href="@Url.Action("Details",new{id=Model.Id})">Cancel</a></div>
+}
+

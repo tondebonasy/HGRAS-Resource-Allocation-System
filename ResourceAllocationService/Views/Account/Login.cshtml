@@ -1,0 +1,17 @@
+@model ResourceAllocationService.Models.LoginViewModel
+@{ ViewBag.Title = "Sign in"; }
+<main class="pgh-auth">
+ <section class="pgh-auth-aside"><p class="pgh-eyebrow">Hospital Group Resource Allocation System</p><h1>Connected resources.<br />A shared commitment<br />to care.</h1><p>Your organisation's resource requests, progress and account, all in one place.</p><ul><li><i class="fas fa-check-circle" aria-hidden="true"></i> Request the resources your team needs</li><li><i class="fas fa-check-circle" aria-hidden="true"></i> Follow progress through every stage</li><li><i class="fas fa-check-circle" aria-hidden="true"></i> Keep your organisation connected</li></ul></section>
+ <section class="pgh-auth-main"><div><p class="pgh-eyebrow">Welcome back</p><h2>Sign in to your portal</h2><p class="pgh-muted">Enter your account details to continue.</p>
+ @using(Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post)) {
+  @Html.AntiForgeryToken()
+  @Html.ValidationSummary(false, "", new { role = "alert" })
+  <div class="pgh-field">@Html.LabelFor(m => m.Email, "Email address")@Html.TextBoxFor(m => m.Email, new { type = "email", autocomplete = "username", required = "required", placeholder = "you@organisation.com" })@Html.ValidationMessageFor(m => m.Email)</div>
+  <div class="pgh-field">@Html.LabelFor(m => m.Password)@Html.PasswordFor(m => m.Password, new { autocomplete = "current-password", required = "required", placeholder = "Enter your password" })@Html.ValidationMessageFor(m => m.Password)</div>
+  <div class="pgh-auth-option"><label>@Html.CheckBoxFor(m => m.RememberMe) Remember me</label><a href="@Url.Action("ForgotPassword")">Forgot password?</a></div>
+  <div class="pgh-actions"><button class="pgh-button" type="submit">Sign in</button></div>
+ }
+ <div class="pgh-auth-bottom">New to the portal? <a href="@Url.Action("Register")">Register your organisation</a></div>
+ </div></section>
+</main>
+

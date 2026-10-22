@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61A0EFA4-F42C-45C4-B205-072C6A646E3A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ResourceAllocationService</RootNamespace>
+    <AssemblyName>ResourceAllocationService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44366</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>packages\Microsoft.Owin.Security.Twitter.4.2.2\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>packages\Microsoft.Owin.Security.MicrosoftAccount.4.2.2\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResourceRequestsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestStage.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Resource.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResourceAllocationModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceAllocationModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResourceAllocationModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResourceAllocationModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceAllocationModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResourceRequest.cs">
+      <DependentUpon>ResourceAllocationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\assets\css\demo.css" />
+    <Content Include="Content\assets\img\avatars\1.png" />
+    <Content Include="Content\assets\img\avatars\5.png" />
+    <Content Include="Content\assets\img\avatars\6.png" />
+    <Content Include="Content\assets\img\avatars\7.png" />
+    <Content Include="Content\assets\img\backgrounds\18.jpg" />
+    <Content Include="Content\assets\img\elements\1.jpg" />
+    <Content Include="Content\assets\img\elements\11.jpg" />
+    <Content Include="Content\assets\img\elements\12.jpg" />
+    <Content Include="Content\assets\img\elements\13.jpg" />
+    <Content Include="Content\assets\img\elements\17.jpg" />
+    <Content Include="Content\assets\img\elements\18.jpg" />
+    <Content Include="Content\assets\img\elements\19.jpg" />
+    <Content Include="Content\assets\img\elements\2.jpg" />
+    <Content Include="Content\assets\img\elements\20.jpg" />
+    <Content Include="Content\assets\img\elements\3.jpg" />
+    <Content Include="Content\assets\img\elements\4.jpg" />
+    <Content Include="Content\assets\img\elements\5.jpg" />
+    <Content Include="Content\assets\img\elements\7.jpg" />
+    <Content Include="Content\assets\img\favicon\favicon.ico" />
+    <Content Include="Content\assets\img\icons\brands\asana.png" />
+    <Content Include="Content\assets\img\icons\brands\behance.png" />
+    <Content Include="Content\assets\img\icons\brands\dribbble.png" />
+    <Content Include="Content\assets\img\icons\brands\facebook.png" />
+    <Content Include="Content\assets\img\icons\brands\github.png" />
+    <Content Include="Content\assets\img\icons\brands\google.png" />
+    <Content Include="Content\assets\img\icons\brands\instagram.png" />
+    <Content Include="Content\assets\img\icons\brands\mailchimp.png" />
+    <Content Include="Content\assets\img\icons\brands\slack.png" />
+    <Content Include="Content\assets\img\icons\brands\twitter.png" />
+    <Content Include="Content\assets\img\icons\unicons\cc-primary.png" />
+    <Content Include="Content\assets\img\icons\unicons\cc-success.png" />
+    <Content Include="Content\assets\img\icons\unicons\cc-warning.png" />
+    <Content Include="Content\assets\img\icons\unicons\chart-success.png" />
+    <Content Include="Content\assets\img\icons\unicons\chart.png" />
+    <Content Include="Content\assets\img\icons\unicons\paypal.png" />
+    <Content Include="Content\assets\img\icons\unicons\wallet-info.png" />
+    <Content Include="Content\assets\img\icons\unicons\wallet.png" />
+    <Content Include="Content\assets\img\illustrations\girl-doing-yoga-light.png" />
+    <Content Include="Content\assets\img\illustrations\man-with-laptop-light.png" />
+    <Content Include="Content\assets\img\illustrations\page-misc-error-light.png" />
+    <Content Include="Content\assets\img\layouts\layout-container-light.png" />
+    <Content Include="Content\assets\img\layouts\layout-fluid-light.png" />
+    <Content Include="Content\assets\img\layouts\layout-without-menu-light.png" />
+    <Content Include="Content\assets\img\layouts\layout-without-navbar-light.png" />
+    <Content Include="Content\assets\js\config.js" />
+    <Content Include="Content\assets\js\dashboards-analytics.js" />
+    <Content Include="Content\assets\js\extended-ui-perfect-scrollbar.js" />
+    <Content Include="Content\assets\js\form-basic-inputs.js" />
+    <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\js\pages-account-settings-account.js" />
+    <Content Include="Content\assets\js\ui-modals.js" />
+    <Content Include="Content\assets\js\ui-popover.js" />
+    <Content Include="Content\assets\js\ui-toasts.js" />
+    <Content Include="Content\assets\vendor\css\core.css" />
+    <Content Include="Content\assets\vendor\css\pages\page-account-settings.css" />
+    <Content Include="Content\assets\vendor\css\pages\page-auth.css" />
+    <Content Include="Content\assets\vendor\css\pages\page-icons.css" />
+    <Content Include="Content\assets\vendor\css\pages\page-misc.css" />
+    <Content Include="Content\assets\vendor\css\theme-default.css" />
+    <Content Include="Content\assets\vendor\fonts\boxicons.css" />
+    <Content Include="Content\assets\vendor\fonts\boxicons\boxicons.svg" />
+    <Content Include="Content\assets\vendor\js\bootstrap.js" />
+    <Content Include="Content\assets\vendor\js\helpers.js" />
+    <Content Include="Content\assets\vendor\js\menu.js" />
+    <Content Include="Content\assets\vendor\libs\apex-charts\apex-charts.css" />
+    <Content Include="Content\assets\vendor\libs\apex-charts\apexcharts.js" />
+    <Content Include="Content\assets\vendor\libs\highlight\highlight-github.css" />
+    <Content Include="Content\assets\vendor\libs\highlight\highlight.css" />
+    <Content Include="Content\assets\vendor\libs\highlight\highlight.js" />
+    <Content Include="Content\assets\vendor\libs\jquery\jquery.js" />
+    <Content Include="Content\assets\vendor\libs\masonry\masonry.js" />
+    <Content Include="Content\assets\vendor\libs\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Content\assets\vendor\libs\perfect-scrollbar\perfect-scrollbar.js" />
+    <Content Include="Content\assets\vendor\libs\popper\popper.js" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\main.min.css" />
+    <Content Include="Content\icons-pack\electronics\flaticon.css" />
+    <Content Include="Content\icons-pack\electronics\flaticon.html" />
+    <Content Include="Content\icons-pack\electronics\Flaticon.svg" />
+    <Content Include="Content\icons-pack\fontawesome-5\css\all.css" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-duotone-900.svg" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-light-300.svg" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\icons-pack\fontello\demo.html" />
+    <Content Include="Content\icons-pack\fontello\fontello.svg" />
+    <Content Include="Content\icons-pack\hosting\flaticon.html" />
+    <Content Include="Content\icons-pack\hosting\Flaticon.svg" />
+    <Content Include="Content\img\bg\bg.jpg" />
+    <Content Include="Content\img\bg\box-hover.png" />
+    <Content Include="Content\img\bg\bulb\bulb-blue.png" />
+    <Content Include="Content\img\bg\b_bg_02.jpg" />
+    <Content Include="Content\img\bg\b_bg_02.png" />
+    <Content Include="Content\img\bg\cercle.png" />
+    <Content Include="Content\img\bg\charit.png" />
+    <Content Include="Content\img\bg\home-icon.png" />
+    <Content Include="Content\img\bg\icon-bg.png" />
+    <Content Include="Content\img\bg\paper-plan.jpg" />
+    <Content Include="Content\img\bg\plans.svg" />
+    <Content Include="Content\img\bg\shape.png" />
+    <Content Include="Content\img\bg\shapes.png" />
+    <Content Include="Content\img\bg\small-clouds.png" />
+    <Content Include="Content\img\blog\blog2.png" />
+    <Content Include="Content\img\blog\blog3.png" />
+    <Content Include="Content\img\blog\blog4.png" />
+    <Content Include="Content\img\blog\first.jpg" />
+    <Content Include="Content\img\counter\arrow.png" />
+    <Content Include="Content\img\counter\counter-bg-box.png" />
+    <Content Include="Content\img\counter\counter-bg.png" />
+    <Content Include="Content\img\counter\counter.png" />
+    <Content Include="Content\img\cross-grey.png" />
+    <Content Include="Content\img\demo\404.jpg" />
+    <Content Include="Content\img\demo\admin-panel.png" />
+    <Content Include="Content\img\demo\apex-bg.jpg" />
+    <Content Include="Content\img\demo\counter.png" />
+    <Content Include="Content\img\demo\demos-screen.png" />
+    <Content Include="Content\img\demo\demos\about.jpg" />
+    <Content Include="Content\img\demo\demos\atlas.jpg" />
+    <Content Include="Content\img\demo\demos\chrea.jpg" />
+    <Content Include="Content\img\demo\demos\cloud-vps.jpg" />
+    <Content Include="Content\img\demo\demos\contact.jpg" />
+    <Content Include="Content\img\demo\demos\cpanel.jpg" />
+    <Content Include="Content\img\demo\demos\dedicated.jpg" />
+    <Content Include="Content\img\demo\demos\demo-1.jpg" />
+    <Content Include="Content\img\demo\demos\domain.jpg" />
+    <Content Include="Content\img\demo\demos\games.jpg" />
+    <Content Include="Content\img\demo\demos\help-center.jpg" />
+    <Content Include="Content\img\demo\demos\hoggar.jpg" />
+    <Content Include="Content\img\demo\demos\home-old-1.jpg" />
+    <Content Include="Content\img\demo\demos\home-old-2.jpg" />
+    <Content Include="Content\img\demo\demos\home-old-3.jpg" />
+    <Content Include="Content\img\demo\demos\home1.jpg" />
+    <Content Include="Content\img\demo\demos\home2.jpg" />
+    <Content Include="Content\img\demo\demos\home3.jpg" />
+    <Content Include="Content\img\demo\demos\hosting.jpg" />
+    <Content Include="Content\img\demo\demos\icecast.jpg" />
+    <Content Include="Content\img\demo\demos\knowledgebase.jpg" />
+    <Content Include="Content\img\demo\demos\login.jpg" />
+    <Content Include="Content\img\demo\demos\orderform-1.jpg" />
+    <Content Include="Content\img\demo\demos\orderform-2.jpg" />
+    <Content Include="Content\img\demo\demos\privacy.jpg" />
+    <Content Include="Content\img\demo\demos\sefar.jpg" />
+    <Content Include="Content\img\demo\demos\servers.jpg" />
+    <Content Include="Content\img\demo\demos\shoutcast.jpg" />
+    <Content Include="Content\img\demo\demos\ssl.jpg" />
+    <Content Include="Content\img\demo\demos\status.jpg" />
+    <Content Include="Content\img\demo\demos\vps-reseller.jpg" />
+    <Content Include="Content\img\demo\demos\whmcs-panel.png" />
+    <Content Include="Content\img\demo\demos\whmcs-rtl-2.jpg" />
+    <Content Include="Content\img\demo\demos\whmcs-rtl.jpg" />
+    <Content Include="Content\img\demo\demos\whmcs1.jpg" />
+    <Content Include="Content\img\demo\demos\whmcs2.jpg" />
+    <Content Include="Content\img\demo\demos\whmcs3.jpg" />
+    <Content Include="Content\img\demo\demos\whmcs4.jpg" />
+    <Content Include="Content\img\demo\demos\wordpress.jpg" />
+    <Content Include="Content\img\demo\faces\member1.jpg" />
+    <Content Include="Content\img\demo\faces\member2.jpg" />
+    <Content Include="Content\img\demo\faces\member3.jpg" />
+    <Content Include="Content\img\demo\faces\member4.jpg" />
+    <Content Include="Content\img\demo\faces\member5.jpg" />
+    <Content Include="Content\img\demo\faces\member6.jpg" />
+    <Content Include="Content\img\demo\features\feature-img-01-01.png" />
+    <Content Include="Content\img\demo\features\feature-img-01.png" />
+    <Content Include="Content\img\demo\features\feature-img-05.png" />
+    <Content Include="Content\img\demo\features\feature-img-06-01.png" />
+    <Content Include="Content\img\demo\features\feature-img-06.png" />
+    <Content Include="Content\img\demo\features\feature-img-07-01.png" />
+    <Content Include="Content\img\demo\features\feature-img-07.png" />
+    <Content Include="Content\img\demo\features\feature-img-08.png" />
+    <Content Include="Content\img\demo\features\feature-img-09.png" />
+    <Content Include="Content\img\demo\features\feature-img-10.png" />
+    <Content Include="Content\img\demo\features\feature-img-11.png" />
+    <Content Include="Content\img\demo\features\feature-img-12.png" />
+    <Content Include="Content\img\demo\features\green-feature.png" />
+    <Content Include="Content\img\demo\features\medicine.jpg" />
+    <Content Include="Content\img\demo\features\pari.jpg" />
+    <Content Include="Content\img\demo\features\red-feature.png" />
+    <Content Include="Content\img\demo\features\resource.jpg" />
+    <Content Include="Content\img\demo\features\services-2.png" />
+    <Content Include="Content\img\demo\features\services-3.png" />
+    <Content Include="Content\img\demo\features\services.png" />
+    <Content Include="Content\img\demo\features\yellow-feature.png" />
+    <Content Include="Content\img\demo\games\apex-bg.jpg" />
+    <Content Include="Content\img\demo\games\control-panel.png" />
+    <Content Include="Content\img\demo\games\medicine.jpg" />
+    <Content Include="Content\img\demo\groupofworks.jpg" />
+    <Content Include="Content\img\demo\minecraft.png" />
+    <Content Include="Content\img\demo\office.jpg" />
+    <Content Include="Content\img\demo\rust.png" />
+    <Content Include="Content\img\demo\secure.png" />
+    <Content Include="Content\img\demo\ssl-link.png" />
+    <Content Include="Content\img\demo\ssl-screen.png" />
+    <Content Include="Content\img\demo\ssl.png" />
+    <Content Include="Content\img\demo\ssls.png" />
+    <Content Include="Content\img\demo\voice-panel.png" />
+    <Content Include="Content\img\demo\voice.png" />
+    <Content Include="Content\img\demo\whmcs.png" />
+    <Content Include="Content\img\domain\black\co.png" />
+    <Content Include="Content\img\domain\black\com.png" />
+    <Content Include="Content\img\domain\black\life.png" />
+    <Content Include="Content\img\domain\black\net.png" />
+    <Content Include="Content\img\domain\black\org.png" />
+    <Content Include="Content\img\domain\black\shop.png" />
+    <Content Include="Content\img\domain\com.png" />
+    <Content Include="Content\img\domain\net.png" />
+    <Content Include="Content\img\domain\org.png" />
+    <Content Include="Content\img\domain\store.png" />
+    <Content Include="Content\img\flags\usa.svg" />
+    <Content Include="Content\img\footer\secure.png" />
+    <Content Include="Content\img\header\404 %282%29.png" />
+    <Content Include="Content\img\header\404.png" />
+    <Content Include="Content\img\header\bg %282%29.png" />
+    <Content Include="Content\img\header\bg.png" />
+    <Content Include="Content\img\header\bottom-header-bar %282%29.svg" />
+    <Content Include="Content\img\header\bottom-header-bar.svg" />
+    <Content Include="Content\img\header\cloud-bg.svg" />
+    <Content Include="Content\img\header\h_bg_01 %282%29.svg" />
+    <Content Include="Content\img\header\h_bg_01.svg" />
+    <Content Include="Content\img\header\h_bg_02.svg" />
+    <Content Include="Content\img\header\lines-bg.svg" />
+    <Content Include="Content\img\header\logo %282%29.png" />
+    <Content Include="Content\img\header\logo-w-f.png" />
+    <Content Include="Content\img\header\logo-w.png" />
+    <Content Include="Content\img\header\logo.png" />
+    <Content Include="Content\img\header\navs\dropdown %282%29.png" />
+    <Content Include="Content\img\header\navs\dropdown.png" />
+    <Content Include="Content\img\header\shapes\shape_01 %282%29.png" />
+    <Content Include="Content\img\header\shapes\shape_01.png" />
+    <Content Include="Content\img\header\shapes\shape_02 %282%29.png" />
+    <Content Include="Content\img\header\shapes\shape_02.png" />
+    <Content Include="Content\img\header\shapes\shape_03 %282%29.png" />
+    <Content Include="Content\img\header\shapes\shape_03.png" />
+    <Content Include="Content\img\header\slider\header-bg %282%29.png" />
+    <Content Include="Content\img\header\slider\header-bg-01 %282%29.png" />
+    <Content Include="Content\img\header\slider\header-bg-01.png" />
+    <Content Include="Content\img\header\slider\header-bg-02 %282%29.png" />
+    <Content Include="Content\img\header\slider\header-bg-02.png" />
+    <Content Include="Content\img\header\slider\header-bg.png" />
+    <Content Include="Content\img\header\wave.svg" />
+    <Content Include="Content\img\maps\map.png" />
+    <Content Include="Content\img\payment\icon-bitcoin.png" />
+    <Content Include="Content\img\payment\icon-maestro.png" />
+    <Content Include="Content\img\payment\icon-visa.png" />
+    <Content Include="Content\img\pertners\envato.png" />
+    <Content Include="Content\img\pertners\google.png" />
+    <Content Include="Content\img\pertners\logo1.png" />
+    <Content Include="Content\img\pertners\logo2.png" />
+    <Content Include="Content\img\pertners\logo3.png" />
+    <Content Include="Content\img\pertners\logo4.png" />
+    <Content Include="Content\img\pertners\logo5.png" />
+    <Content Include="Content\img\pertners\trust.png" />
+    <Content Include="Content\img\plans\b_package-l.png" />
+    <Content Include="Content\img\plans\b_package-r.png" />
+    <Content Include="Content\img\svgs\Add document.svg" />
+    <Content Include="Content\img\svgs\Add folder.svg" />
+    <Content Include="Content\img\svgs\Add location-1.svg" />
+    <Content Include="Content\img\svgs\Add location.svg" />
+    <Content Include="Content\img\svgs\Add-1.svg" />
+    <Content Include="Content\img\svgs\Add.svg" />
+    <Content Include="Content\img\svgs\Ain.svg" />
+    <Content Include="Content\img\svgs\Announcement.svg" />
+    <Content Include="Content\img\svgs\Apple.svg" />
+    <Content Include="Content\img\svgs\Arrow left-1.svg" />
+    <Content Include="Content\img\svgs\Arrow left.svg" />
+    <Content Include="Content\img\svgs\Arrow right-1.svg" />
+    <Content Include="Content\img\svgs\Arrow right.svg" />
+    <Content Include="Content\img\svgs\Arrow-1.svg" />
+    <Content Include="Content\img\svgs\Arrow-2.svg" />
+    <Content Include="Content\img\svgs\Arrow-3.svg" />
+    <Content Include="Content\img\svgs\Arrow-4.svg" />
+    <Content Include="Content\img\svgs\Arrow-5.svg" />
+    <Content Include="Content\img\svgs\Arrow-6.svg" />
+    <Content Include="Content\img\svgs\Arrow.svg" />
+    <Content Include="Content\img\svgs\Arrows-1.svg" />
+    <Content Include="Content\img\svgs\Arrows-2.svg" />
+    <Content Include="Content\img\svgs\Arrows.svg" />
+    <Content Include="Content\img\svgs\Authorization success.svg" />
+    <Content Include="Content\img\svgs\Ax.svg" />
+    <Content Include="Content\img\svgs\Backpack.svg" />
+    <Content Include="Content\img\svgs\Bag of money.svg" />
+    <Content Include="Content\img\svgs\Bag.svg" />
+    <Content Include="Content\img\svgs\Bank.svg" />
+    <Content Include="Content\img\svgs\Basket.svg" />
+    <Content Include="Content\img\svgs\Bed.svg" />
+    <Content Include="Content\img\svgs\Bicycle.svg" />
+    <Content Include="Content\img\svgs\Bike.svg" />
+    <Content Include="Content\img\svgs\Binoculars.svg" />
+    <Content Include="Content\img\svgs\Bluetooth.svg" />
+    <Content Include="Content\img\svgs\Book.svg" />
+    <Content Include="Content\img\svgs\Bookmark.svg" />
+    <Content Include="Content\img\svgs\Brain.svg" />
+    <Content Include="Content\img\svgs\Bungalo.svg" />
+    <Content Include="Content\img\svgs\Bus.svg" />
+    <Content Include="Content\img\svgs\Calculator.svg" />
+    <Content Include="Content\img\svgs\Capitan.svg" />
+    <Content Include="Content\img\svgs\Card.svg" />
+    <Content Include="Content\img\svgs\Cart.svg" />
+    <Content Include="Content\img\svgs\Case.svg" />
+    <Content Include="Content\img\svgs\Cash.svg" />
+    <Content Include="Content\img\svgs\Chart-1.svg" />
+    <Content Include="Content\img\svgs\Chart-10.svg" />
+    <Content Include="Content\img\svgs\Chart-11.svg" />
+    <Content Include="Content\img\svgs\Chart-12.svg" />
+    <Content Include="Content\img\svgs\Chart-13.svg" />
+    <Content Include="Content\img\svgs\Chart-14.svg" />
+    <Content Include="Content\img\svgs\Chart-15.svg" />
+    <Content Include="Content\img\svgs\Chart-2.svg" />
+    <Content Include="Content\img\svgs\Chart-3.svg" />
+    <Content Include="Content\img\svgs\Chart-4.svg" />
+    <Content Include="Content\img\svgs\Chart-5.svg" />
+    <Content Include="Content\img\svgs\Chart-6.svg" />
+    <Content Include="Content\img\svgs\Chart-7.svg" />
+    <Content Include="Content\img\svgs\Chart-8.svg" />
+    <Content Include="Content\img\svgs\Chart-9.svg" />
+    <Content Include="Content\img\svgs\Chart.svg" />
+    <Content Include="Content\img\svgs\Check.svg" />
+    <Content Include="Content\img\svgs\Cheese.svg" />
+    <Content Include="Content\img\svgs\Chief Hat.svg" />
+    <Content Include="Content\img\svgs\Chinese.svg" />
+    <Content Include="Content\img\svgs\Chocolate.svg" />
+    <Content Include="Content\img\svgs\Clip.svg" />
+    <Content Include="Content\img\svgs\Close-1.svg" />
+    <Content Include="Content\img\svgs\Close.svg" />
+    <Content Include="Content\img\svgs\Cloud download.svg" />
+    <Content Include="Content\img\svgs\Cloud upload.svg" />
+    <Content Include="Content\img\svgs\Cloud yes.svg" />
+    <Content Include="Content\img\svgs\Cloud.svg" />
+    <Content Include="Content\img\svgs\clouds.svg" />
+    <Content Include="Content\img\svgs\Cocktail-1.svg" />
+    <Content Include="Content\img\svgs\Cocktail-2.svg" />
+    <Content Include="Content\img\svgs\Cocktail-3.svg" />
+    <Content Include="Content\img\svgs\Cocktail.svg" />
+    <Content Include="Content\img\svgs\Coffee-1.svg" />
+    <Content Include="Content\img\svgs\Coffee.svg" />
+    <Content Include="Content\img\svgs\Coin.svg" />
+    <Content Include="Content\img\svgs\Coins.svg" />
+    <Content Include="Content\img\svgs\Cometa.svg" />
+    <Content Include="Content\img\svgs\Compass.svg" />
+    <Content Include="Content\img\svgs\Consellation.svg" />
+    <Content Include="Content\img\svgs\Currency exchange.svg" />
+    <Content Include="Content\img\svgs\dedicated.svg" />
+    <Content Include="Content\img\svgs\Delete document.svg" />
+    <Content Include="Content\img\svgs\Delete folder.svg" />
+    <Content Include="Content\img\svgs\Delete location.svg" />
+    <Content Include="Content\img\svgs\Detailed\AirBuds.svg" />
+    <Content Include="Content\img\svgs\Detailed\Battery.svg" />
+    <Content Include="Content\img\svgs\Detailed\Calculator.svg" />
+    <Content Include="Content\img\svgs\Detailed\Charger.svg" />
+    <Content Include="Content\img\svgs\Detailed\Download.svg" />
+    <Content Include="Content\img\svgs\Detailed\Game Controller.svg" />
+    <Content Include="Content\img\svgs\Detailed\iPad Touch.svg" />
+    <Content Include="Content\img\svgs\Detailed\Laptop.svg" />
+    <Content Include="Content\img\svgs\Detailed\Like.svg" />
+    <Content Include="Content\img\svgs\Detailed\Phone.svg" />
+    <Content Include="Content\img\svgs\Detailed\Phones.svg" />
+    <Content Include="Content\img\svgs\Detailed\Printer.svg" />
+    <Content Include="Content\img\svgs\Detailed\Responsive.svg" />
+    <Content Include="Content\img\svgs\Detailed\Smartwatch.svg" />
+    <Content Include="Content\img\svgs\Detailed\Sync.svg" />
+    <Content Include="Content\img\svgs\Detailed\Tap.svg" />
+    <Content Include="Content\img\svgs\Detailed\To Do.svg" />
+    <Content Include="Content\img\svgs\Detailed\Upload.svg" />
+    <Content Include="Content\img\svgs\Detailed\VR.svg" />
+    <Content Include="Content\img\svgs\Diagram-1.svg" />
+    <Content Include="Content\img\svgs\Diagram-2.svg" />
+    <Content Include="Content\img\svgs\Diagram-3.svg" />
+    <Content Include="Content\img\svgs\Diagram.svg" />
+    <Content Include="Content\img\svgs\Dialog.svg" />
+    <Content Include="Content\img\svgs\Diamond.svg" />
+    <Content Include="Content\img\svgs\Dirrection.svg" />
+    <Content Include="Content\img\svgs\Dish.svg" />
+    <Content Include="Content\img\svgs\Diving.svg" />
+    <Content Include="Content\img\svgs\Do not disturb.svg" />
+    <Content Include="Content\img\svgs\Document-1.svg" />
+    <Content Include="Content\img\svgs\Document.svg" />
+    <Content Include="Content\img\svgs\Dollar-1.svg" />
+    <Content Include="Content\img\svgs\Dollar.svg" />
+    <Content Include="Content\img\svgs\Donut.svg" />
+    <Content Include="Content\img\svgs\Earphones.svg" />
+    <Content Include="Content\img\svgs\Earth Globe.svg" />
+    <Content Include="Content\img\svgs\Edit-1.svg" />
+    <Content Include="Content\img\svgs\Edit.svg" />
+    <Content Include="Content\img\svgs\Egg.svg" />
+    <Content Include="Content\img\svgs\Emotion.svg" />
+    <Content Include="Content\img\svgs\Euro-1.svg" />
+    <Content Include="Content\img\svgs\Euro.svg" />
+    <Content Include="Content\img\svgs\Exit full screen.svg" />
+    <Content Include="Content\img\svgs\Explose.svg" />
+    <Content Include="Content\img\svgs\Facebook.svg" />
+    <Content Include="Content\img\svgs\Filter-1.svg" />
+    <Content Include="Content\img\svgs\Filter.svg" />
+    <Content Include="Content\img\svgs\Finger print.svg" />
+    <Content Include="Content\img\svgs\Fish.svg" />
+    <Content Include="Content\img\svgs\Flag.svg" />
+    <Content Include="Content\img\svgs\Folder.svg" />
+    <Content Include="Content\img\svgs\Folk and spoon.svg" />
+    <Content Include="Content\img\svgs\Full screen.svg" />
+    <Content Include="Content\img\svgs\Galaxy.svg" />
+    <Content Include="Content\img\svgs\Gamburger.svg" />
+    <Content Include="Content\img\svgs\Gift.svg" />
+    <Content Include="Content\img\svgs\Glasses.svg" />
+    <Content Include="Content\img\svgs\Globe.svg" />
+    <Content Include="Content\img\svgs\Grape.svg" />
+    <Content Include="Content\img\svgs\Grill.svg" />
+    <Content Include="Content\img\svgs\Guitar.svg" />
+    <Content Include="Content\img\svgs\Help.svg" />
+    <Content Include="Content\img\svgs\Home.svg" />
+    <Content Include="Content\img\svgs\hosting.svg" />
+    <Content Include="Content\img\svgs\hover-box\big-lifesaver.svg" />
+    <Content Include="Content\img\svgs\hover-box\big-light.svg" />
+    <Content Include="Content\img\svgs\hover-box\big-telephone.svg" />
+    <Content Include="Content\img\svgs\hover-box\headphones-with-thin-mic.svg" />
+    <Content Include="Content\img\svgs\hover-box\inclined-paper-plane.svg" />
+    <Content Include="Content\img\svgs\hover-box\inclined-rocket.svg" />
+    <Content Include="Content\img\svgs\hover-box\public-speech.svg" />
+    <Content Include="Content\img\svgs\hover-box\quality-badge.svg" />
+    <Content Include="Content\img\svgs\Icecream-1.svg" />
+    <Content Include="Content\img\svgs\Icecream.svg" />
+    <Content Include="Content\img\svgs\Idea.svg" />
+    <Content Include="Content\img\svgs\Image.svg" />
+    <Content Include="Content\img\svgs\Important.svg" />
+    <Content Include="Content\img\svgs\Increase.svg" />
+    <Content Include="Content\img\svgs\Infinity.svg" />
+    <Content Include="Content\img\svgs\Instagram.svg" />
+    <Content Include="Content\img\svgs\Joystick.svg" />
+    <Content Include="Content\img\svgs\Karaoke.svg" />
+    <Content Include="Content\img\svgs\Kayak.svg" />
+    <Content Include="Content\img\svgs\Key.svg" />
+    <Content Include="Content\img\svgs\Lable.svg" />
+    <Content Include="Content\img\svgs\Landing.svg" />
+    <Content Include="Content\img\svgs\Language.svg" />
+    <Content Include="Content\img\svgs\Laptop.svg" />
+    <Content Include="Content\img\svgs\Lighthouse.svg" />
+    <Content Include="Content\img\svgs\Lightning.svg" />
+    <Content Include="Content\img\svgs\Like-1.svg" />
+    <Content Include="Content\img\svgs\Like-2.svg" />
+    <Content Include="Content\img\svgs\Like.svg" />
+    <Content Include="Content\img\svgs\Link.svg" />
+    <Content Include="Content\img\svgs\List.svg" />
+    <Content Include="Content\img\svgs\Loading.svg" />
+    <Content Include="Content\img\svgs\Location.svg" />
+    <Content Include="Content\img\svgs\Locked.svg" />
+    <Content Include="Content\img\svgs\Luggage.svg" />
+    <Content Include="Content\img\svgs\Mail.svg" />
+    <Content Include="Content\img\svgs\Map.svg" />
+    <Content Include="Content\img\svgs\Mark.svg" />
+    <Content Include="Content\img\svgs\Marshmallow.svg" />
+    <Content Include="Content\img\svgs\Menu-1.svg" />
+    <Content Include="Content\img\svgs\Menu.svg" />
+    <Content Include="Content\img\svgs\Message.svg" />
+    <Content Include="Content\img\svgs\Mobile.svg" />
+    <Content Include="Content\img\svgs\Molecula.svg" />
+    <Content Include="Content\img\svgs\Money box.svg" />
+    <Content Include="Content\img\svgs\Moon.svg" />
+    <Content Include="Content\img\svgs\Mountains.svg" />
+    <Content Include="Content\img\svgs\Music.svg" />
+    <Content Include="Content\img\svgs\Navigation.svg" />
+    <Content Include="Content\img\svgs\Notification.svg" />
+    <Content Include="Content\img\svgs\Palette.svg" />
+    <Content Include="Content\img\svgs\Palm.svg" />
+    <Content Include="Content\img\svgs\Pear.svg" />
+    <Content Include="Content\img\svgs\Percent.svg" />
+    <Content Include="Content\img\svgs\Photo.svg" />
+    <Content Include="Content\img\svgs\Pinned map.svg" />
+    <Content Include="Content\img\svgs\Pizza.svg" />
+    <Content Include="Content\img\svgs\Plane 2.svg" />
+    <Content Include="Content\img\svgs\Plane.svg" />
+    <Content Include="Content\img\svgs\Play.svg" />
+    <Content Include="Content\img\svgs\Popcorn.svg" />
+    <Content Include="Content\img\svgs\Potato.svg" />
+    <Content Include="Content\img\svgs\Potholder.svg" />
+    <Content Include="Content\img\svgs\Reduce.svg" />
+    <Content Include="Content\img\svgs\Reload.svg" />
+    <Content Include="Content\img\svgs\Remove document.svg" />
+    <Content Include="Content\img\svgs\Remove folder.svg" />
+    <Content Include="Content\img\svgs\Rock.svg" />
+    <Content Include="Content\img\svgs\Rocket.svg" />
+    <Content Include="Content\img\svgs\Safe.svg" />
+    <Content Include="Content\img\svgs\Satellite Dish.svg" />
+    <Content Include="Content\img\svgs\Saturn.svg" />
+    <Content Include="Content\img\svgs\Sausage.svg" />
+    <Content Include="Content\img\svgs\Scroll.svg" />
+    <Content Include="Content\img\svgs\Sea.svg" />
+    <Content Include="Content\img\svgs\Search.svg" />
+    <Content Include="Content\img\svgs\Security announcement.svg" />
+    <Content Include="Content\img\svgs\Security check.svg" />
+    <Content Include="Content\img\svgs\Security close.svg" />
+    <Content Include="Content\img\svgs\Security download.svg" />
+    <Content Include="Content\img\svgs\Security prohibition.svg" />
+    <Content Include="Content\img\svgs\Security question.svg" />
+    <Content Include="Content\img\svgs\Security settings.svg" />
+    <Content Include="Content\img\svgs\Security upload.svg" />
+    <Content Include="Content\img\svgs\Security view.svg" />
+    <Content Include="Content\img\svgs\Send.svg" />
+    <Content Include="Content\img\svgs\Server-1.svg" />
+    <Content Include="Content\img\svgs\Server.svg" />
+    <Content Include="Content\img\svgs\servers.svg" />
+    <Content Include="Content\img\svgs\Settings-1.svg" />
+    <Content Include="Content\img\svgs\Settings.svg" />
+    <Content Include="Content\img\svgs\Shape 207.svg" />
+    <Content Include="Content\img\svgs\Share-1.svg" />
+    <Content Include="Content\img\svgs\Share-2.svg" />
+    <Content Include="Content\img\svgs\Share.svg" />
+    <Content Include="Content\img\svgs\Ship.svg" />
+    <Content Include="Content\img\svgs\Slice of orange.svg" />
+    <Content Include="Content\img\svgs\Star.svg" />
+    <Content Include="Content\img\svgs\Stars.svg" />
+    <Content Include="Content\img\svgs\Strawberry.svg" />
+    <Content Include="Content\img\svgs\Surfing.svg" />
+    <Content Include="Content\img\svgs\Take off.svg" />
+    <Content Include="Content\img\svgs\Target.svg" />
+    <Content Include="Content\img\svgs\Tea.svg" />
+    <Content Include="Content\img\svgs\Telescope.svg" />
+    <Content Include="Content\img\svgs\Time-1.svg" />
+    <Content Include="Content\img\svgs\Time.svg" />
+    <Content Include="Content\img\svgs\To the top.svg" />
+    <Content Include="Content\img\svgs\Track.svg" />
+    <Content Include="Content\img\svgs\Trailer.svg" />
+    <Content Include="Content\img\svgs\Trash.svg" />
+    <Content Include="Content\img\svgs\Tree 1.svg" />
+    <Content Include="Content\img\svgs\Tree 2.svg" />
+    <Content Include="Content\img\svgs\Turn off.svg" />
+    <Content Include="Content\img\svgs\Unlocked.svg" />
+    <Content Include="Content\img\svgs\User-1.svg" />
+    <Content Include="Content\img\svgs\User.svg" />
+    <Content Include="Content\img\svgs\View-1.svg" />
+    <Content Include="Content\img\svgs\View-2.svg" />
+    <Content Include="Content\img\svgs\View.svg" />
+    <Content Include="Content\img\svgs\Wallet.svg" />
+    <Content Include="Content\img\svgs\Watch.svg" />
+    <Content Include="Content\img\svgs\Weather.svg" />
+    <Content Include="Content\img\svgs\Window.svg" />
+    <Content Include="Content\img\svgs\Wok.svg" />
+    <Content Include="Content\img\svgs\Youtube.svg" />
+    <Content Include="Content\img\v-blue.png" />
+    <Content Include="Content\js\animated-bg.js" />
+    <Content Include="Content\js\anime.min.js" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\bootstrap.offcanvas.min.js" />
+    <Content Include="Content\js\demo.js" />
+    <Content Include="Content\js\flickity-fade.js" />
+    <Content Include="Content\js\flickity.pkgd.min.js" />
+    <Content Include="Content\js\helpers.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\jquery.touchSwipe.min.js" />
+    <Content Include="Content\js\mailchamp.js" />
+    <Content Include="Content\js\mailer.js" />
+    <Content Include="Content\js\menu.js" />
+    <Content Include="Content\js\parallax.min.js" />
+    <Content Include="Content\js\particles-code.js" />
+    <Content Include="Content\js\particles.js" />
+    <Content Include="Content\js\popper.min.js" />
+    <Content Include="Content\js\smoothscroll.js" />
+    <Content Include="Content\js\template-scripts.js" />
+    <Content Include="Content\js\typed.js" />
+    <Content Include="Content\js\video-bg.js" />
+    <Content Include="Content\libs\apex-charts\apexcharts.js" />
+    <Content Include="Content\libs\highlight\highlight.js" />
+    <Content Include="Content\libs\jquery\jquery.js" />
+    <Content Include="Content\libs\masonry\masonry.js" />
+    <Content Include="Content\libs\perfect-scrollbar\perfect-scrollbar.js" />
+    <Content Include="Content\libs\popper\popper.js" />
+    <Content Include="Content\media\coodiv-vid.mp4" />
+    <Content Include="Content\media\fallback.jpg" />
+    <Content Include="Content\owlcarousel\owl.carousel.min.js" />
+    <Content Include="Content\tasks\build.js" />
+    <Content Include="Content\tasks\prod.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Models\ResourceAllocationModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ResourceAllocationModel.edmx</DependentUpon>
+      <LastGenOutput>ResourceAllocationModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ResourceAllocationModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ResourceAllocationModel.edmx</DependentUpon>
+      <LastGenOutput>ResourceAllocationModel.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\ResourceAllocationModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ResourceAllocationModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ResourceAllocationModel.edmx.diagram">
+      <DependentUpon>ResourceAllocationModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
+    <Folder Include="Views\Dashboard\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\Basier-Circle-bold-webfont\basiercircle-bold-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-bold-webfont\basiercircle-bold-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-bold-webfont\basiercircle-bold-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-bolditalic-webfont\basiercircle-bolditalic-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-bolditalic-webfont\basiercircle-bolditalic-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-bolditalic-webfont\basiercircle-bolditalic-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-medium-webfont\basiercircle-medium-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-medium-webfont\basiercircle-medium-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-medium-webfont\basiercircle-medium-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-mediumitalic-webfont\basiercircle-mediumitalic-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-mediumitalic-webfont\basiercircle-mediumitalic-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-mediumitalic-webfont\basiercircle-mediumitalic-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-Mono-regular-webfont\basiercirclemono-regular-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-Mono-regular-webfont\basiercirclemono-regular-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-Mono-regular-webfont\basiercirclemono-regular-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-regular-webfont\basiercircle-regular-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-regular-webfont\basiercircle-regular-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-regular-webfont\basiercircle-regular-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-regularitalic-webfont\basiercircle-regularitalic-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-regularitalic-webfont\basiercircle-regularitalic-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-regularitalic-webfont\basiercircle-regularitalic-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-semibold-webfont\basiercircle-semibold-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-semibold-webfont\basiercircle-semibold-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-semibold-webfont\basiercircle-semibold-webfont.woff2" />
+    <Content Include="Content\fonts\Basier-Circle-semibolditalic-webfont\basiercircle-semibolditalic-webfont.ttf" />
+    <Content Include="Content\fonts\Basier-Circle-semibolditalic-webfont\basiercircle-semibolditalic-webfont.woff" />
+    <Content Include="Content\fonts\Basier-Circle-semibolditalic-webfont\basiercircle-semibolditalic-webfont.woff2" />
+    <Content Include="Content\icons-pack\electronics\Flaticon.eot" />
+    <Content Include="Content\icons-pack\electronics\Flaticon.ttf" />
+    <Content Include="Content\icons-pack\electronics\Flaticon.woff" />
+    <Content Include="Content\icons-pack\electronics\Flaticon.woff2" />
+    <Content Include="Content\icons-pack\electronics\_flaticon.scss" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-duotone-900.eot" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-duotone-900.ttf" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-duotone-900.woff" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-duotone-900.woff2" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-light-300.eot" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-light-300.ttf" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-light-300.woff" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-light-300.woff2" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\icons-pack\fontawesome-5\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\icons-pack\fontello\fontello.eot" />
+    <Content Include="Content\icons-pack\fontello\fontello.ttf" />
+    <Content Include="Content\icons-pack\fontello\fontello.woff" />
+    <Content Include="Content\icons-pack\fontello\fontello.woff2" />
+    <Content Include="Content\icons-pack\hosting\Flaticon.eot" />
+    <Content Include="Content\icons-pack\hosting\Flaticon.ttf" />
+    <Content Include="Content\icons-pack\hosting\Flaticon.woff" />
+    <Content Include="Content\icons-pack\hosting\_flaticon.scss" />
+    <Content Include="Content\img\demo\games\craftbukkit.webp" />
+    <Content Include="Content\img\demo\games\paper.webp" />
+    <Content Include="Content\img\demo\games\snapshots.webp" />
+    <Content Include="Content\img\demo\games\spigot.webp" />
+    <Content Include="Content\img\demo\games\sponge-vanilla.webp" />
+    <Content Include="Content\img\demo\games\vanilla.webp" />
+    <Content Include="Content\img\header\h_bg_01 %282%29.ai" />
+    <Content Include="Content\img\header\h_bg_01.ai" />
+    <Content Include="Content\img\demo\features\chat.avif" />
+    <Content Include="Content\assets\vendor\fonts\boxicons\boxicons.eot" />
+    <Content Include="Content\assets\vendor\fonts\boxicons\boxicons.ttf" />
+    <Content Include="Content\assets\vendor\fonts\boxicons\boxicons.woff" />
+    <Content Include="Content\assets\vendor\fonts\boxicons\boxicons.woff2" />
+    <Content Include="Content\fonts\boxicons.scss" />
+    <Content Include="Content\libs\apex-charts\apex-charts.scss" />
+    <Content Include="Content\libs\highlight\highlight-github.scss" />
+    <Content Include="Content\libs\highlight\highlight.scss" />
+    <Content Include="Content\libs\perfect-scrollbar\perfect-scrollbar.scss" />
+    <Content Include="Content\scss\core.scss" />
+    <Content Include="Content\scss\pages\page-account-settings.scss" />
+    <Content Include="Content\scss\pages\page-auth.scss" />
+    <Content Include="Content\scss\pages\page-icons.scss" />
+    <Content Include="Content\scss\pages\page-misc.scss" />
+    <Content Include="Content\scss\theme-default.scss" />
+    <Content Include="Content\scss\_bootstrap-extended.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_floating-labels.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_form-control.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_form-range.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_form-select.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_input-group.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_labels.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\forms\_validation.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_alert.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_badge.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_buttons.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_caret.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_dropdown.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_forms.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_list-group.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_misc.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_navs.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_pagination.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_progress.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_table-variants.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\mixins\_toasts.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_accordion.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_alert.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_badge.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_breadcrumb.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_button-group.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_buttons.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_card.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_carousel.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_close.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_dropdown.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_forms.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_functions.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_include.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_list-group.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_mixins.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_modal.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_nav.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_navbar.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_offcanvas.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_pagination.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_popover.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_progress.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_reboot.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_root.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_spinners.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_tables.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_toasts.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_tooltip.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_type.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_utilities-ltr.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_utilities.scss" />
+    <Content Include="Content\scss\_bootstrap-extended\_variables.scss" />
+    <Content Include="Content\scss\_bootstrap.scss" />
+    <Content Include="Content\scss\_colors.scss" />
+    <Content Include="Content\scss\_components.scss" />
+    <Content Include="Content\scss\_components\mixins\_app-brand.scss" />
+    <Content Include="Content\scss\_components\mixins\_avatar.scss" />
+    <Content Include="Content\scss\_components\mixins\_footer.scss" />
+    <Content Include="Content\scss\_components\mixins\_menu.scss" />
+    <Content Include="Content\scss\_components\mixins\_misc.scss" />
+    <Content Include="Content\scss\_components\mixins\_navbar.scss" />
+    <Content Include="Content\scss\_components\mixins\_text-divider.scss" />
+    <Content Include="Content\scss\_components\_app-brand.scss" />
+    <Content Include="Content\scss\_components\_avatar.scss" />
+    <Content Include="Content\scss\_components\_base.scss" />
+    <Content Include="Content\scss\_components\_common.scss" />
+    <Content Include="Content\scss\_components\_footer.scss" />
+    <Content Include="Content\scss\_components\_include.scss" />
+    <Content Include="Content\scss\_components\_layout.scss" />
+    <Content Include="Content\scss\_components\_menu.scss" />
+    <Content Include="Content\scss\_components\_mixins.scss" />
+    <Content Include="Content\scss\_components\_text-divider.scss" />
+    <Content Include="Content\scss\_components\_variables.scss" />
+    <Content Include="Content\scss\_custom-variables\_bootstrap-extended.scss" />
+    <Content Include="Content\scss\_custom-variables\_components.scss" />
+    <Content Include="Content\scss\_custom-variables\_libs.scss" />
+    <Content Include="Content\scss\_custom-variables\_pages.scss" />
+    <Content Include="Content\scss\_custom-variables\_support.scss" />
+    <Content Include="Content\scss\_theme\_common.scss" />
+    <Content Include="Content\scss\_theme\_theme.scss" />
+    <None Include="packages.config" />
+    <Content Include="Views\Home\HelpCenter.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\ResourceRequests\Create.cshtml" />
+    <Content Include="Views\ResourceRequests\Delete.cshtml" />
+    <Content Include="Views\ResourceRequests\Details.cshtml" />
+    <Content Include="Views\ResourceRequests\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58596</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44366/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+<ItemGroup><Content Include="Content\pgh-ui.css" /><Content Include="Views\ResourceRequests\_RequestForm.cshtml" /></ItemGroup><ItemGroup><Content Include="Content\fonts\pgh\basiercircle-regular-webfont.woff2" /><Content Include="Content\fonts\pgh\basiercircle-medium-webfont.woff2" /><Content Include="Content\fonts\pgh\basiercircle-semibold-webfont.woff2" /><Content Include="Content\fonts\pgh\basiercircle-bold-webfont.woff2" /><Content Include="Content\fonts\pgh\basiercircle-regularitalic-webfont.woff2" /></ItemGroup><ItemGroup><Compile Include="..\Shared\RequestWorkflow.cs"><Link>Services\RequestWorkflow.cs</Link></Compile><Compile Include="Models\RequestValidation.cs" /><Content Include="Views\Shared\_RequestTimeline.cshtml" /></ItemGroup><ItemGroup><Compile Include="Models\ImageUploads.cs" /></ItemGroup><ItemGroup><Content Include="Content\img\hgras\clinical-team.jpg" /><Content Include="Content\img\hgras\reception.jpg" /><Content Include="Content\img\hgras\surgeon.jpg" /><Content Include="Content\img\hgras\hospital-exterior.jpg" /><Content Include="Content\img\hgras\oxygen-equipment.jpg" /><Content Include="Content\img\hgras\logo.png" /><Content Include="Content\img\hgras\medicines.jpg" /></ItemGroup><ItemGroup><Compile Include="..\Shared\HgrasNetwork.cs"><Link>Services\HgrasNetwork.cs</Link></Compile><Compile Include="..\Shared\NetworkController.cs"><Link>Controllers\NetworkController.cs</Link></Compile><Content Include="Views\Network\Index.cshtml" /><Content Include="Content\hgras-network.css" /></ItemGroup><ItemGroup><Content Include="Views\Shared\_DashboardChart.cshtml" /><Content Include="Content\hgras-charts.js" /><Content Include="Content\hgras-charts.css" /></ItemGroup><ItemGroup><Content Include="Content\hgras-design.css" /></ItemGroup><ItemGroup><Compile Include="..\Shared\HgrasSchema.cs"><Link>Services\HgrasSchema.cs</Link></Compile><Content Include="App_Data\003-hgras-network.sql" /></ItemGroup></Project>
+
+
+

@@ -1,0 +1,38 @@
+﻿@model ResourceAllocationService.Models.Request
+@{
+    ViewBag.Title = "Request details";
+    var resources = Model.ResourceRequests == null ? new List<ResourceAllocationService.Models.ResourceRequest>() : Model.ResourceRequests.ToList();
+    var initial = Model.RequestStage != null && Model.RequestStage.StageLevel == 1;
+    var status = Model.RequestStage == null || string.IsNullOrWhiteSpace(Model.RequestStage.Name) ? "Awaiting review" : Model.RequestStage.Name;
+}
+<style>
+.request-workspace{max-width:1100px;margin:0 auto;padding:38px 28px 64px;color:#193b4c}.request-back{display:inline-flex;gap:8px;color:#548078;font-size:13px;margin-bottom:30px;font-weight:650}.request-intro{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}.request-overline{text-transform:uppercase;font-size:11px;letter-spacing:1.8px;color:#64858a;font-weight:700;margin-bottom:12px}.request-intro h1{font-size:clamp(28px,4vw,38px);letter-spacing:-1px;line-height:1.25;margin:0;overflow-wrap:anywhere}.request-status{padding:9px 16px;border-radius:30px;background:#e7f3ee;color:#247460;font-size:12px;font-weight:700;flex-shrink:0}.request-columns{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start}.request-card{border:1px solid #e0eaed;background:white;border-radius:18px;overflow:hidden;margin-bottom:24px;box-shadow:0 5px 20px rgba(20,50,60,.025)}.request-card-title{padding:24px;border-bottom:1px solid #edf1f3;display:flex;gap:14px;align-items:center}.request-card-title i{color:#258577;background:#edf7f4;border-radius:12px;padding:13px}.request-card h2{font-size:19px;margin:0 0 5px;letter-spacing:-.3px}.request-card-title p{margin:0;color:#778b95;font-size:12px}.request-resource-table{width:100%;border-collapse:collapse}.request-resource-table th{padding:15px 24px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6d8793;background:#f7fafb}.request-resource-table td{padding:22px 24px;border-top:1px solid #edf2f4;font-size:14px}.request-resource-table td:last-child,.request-resource-table th:last-child{text-align:right}.request-resource-table td:last-child{font-size:17px;font-weight:700;color:#1d7569}.request-copy{padding:24px;color:#617885;line-height:1.8;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}.request-summary{padding:26px}.request-summary dt{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#81949f;margin-top:24px}.request-summary dd{font-size:14px;margin:7px 0 0;color:#274b5e;overflow-wrap:anywhere}.request-summary dl{margin-bottom:0}.request-summary .request-overline{margin:0 0 8px}.request-help{padding:24px;background:#edf6f4;border-radius:16px;color:#567a75;font-size:13px;line-height:1.8}.request-help strong{display:block;color:#226a60;margin-bottom:8px}.request-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.request-delete{padding:12px 18px;border:1px solid #e3c6c6;border-radius:10px;color:#a14949;background:#fff;font-size:13px;font-weight:650}.request-empty{padding:40px 24px;text-align:center;color:#6d8390}.request-empty strong{display:block;color:#315667;margin-bottom:8px}@@media(max-width:780px){.request-columns{grid-template-columns:1fr}.request-intro{align-items:flex-start;flex-direction:column}.request-workspace{padding:28px 18px 44px}.request-summary dl{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.request-summary dl div{min-width:0}}
+</style>
+<main class="request-workspace">
+    <a class="request-back" href="@Url.Action("Details", "Companies", new { name = User.Identity.Name })">&larr; Back to your dashboard</a>
+    <div class="request-intro"><div><p class="request-overline">Resource request / REQ-@Model.Id</p><h1>@(string.IsNullOrWhiteSpace(Model.Description) ? "Resource request" : Model.Description)</h1></div><span class="request-status">@status</span></div>
+    <div class="request-columns">
+        <div>
+            <section class="request-card"><div class="request-card-title"><i class="fas fa-boxes" aria-hidden="true"></i><div><h2>Requested resources</h2><p>@resources.Count resource @(resources.Count == 1 ? "entry" : "entries") in this request</p></div></div>
+                @if(resources.Any()) {
+                    <div class="table-responsive"><table class="request-resource-table"><thead><tr><th scope="col">Resource</th><th scope="col">Quantity</th></tr></thead><tbody>
+                    @foreach(var item in resources) { <tr><td>@(item.Resource == null || string.IsNullOrWhiteSpace(item.Resource.Name) ? "Resource unavailable" : item.Resource.Name)</td><td>@item.Count.ToString("N0")</td></tr> }
+                    </tbody></table></div>
+                } else { <div class="request-empty"><strong>No resources listed</strong>This request does not have any resource entries.</div> }
+            </section>
+            <section class="request-card"><div class="request-card-title"><i class="far fa-file-alt" aria-hidden="true"></i><div><h2>Additional information</h2><p>Details provided with your submission</p></div></div><div class="request-copy">@(string.IsNullOrWhiteSpace(Model.additionalInfo) ? "No additional information was provided." : Model.additionalInfo)</div></section>
+            @if(initial) {
+                <div class="request-controls"><a class="pgh-button" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fas fa-pen" aria-hidden="true"></i> Edit request</a><a class="request-delete" href="@Url.Action("Delete", new { id = Model.Id })">Delete request</a></div>
+            }
+        </div>
+        <aside><section class="request-card request-summary"><p class="request-overline">At a glance</p><h2>Request summary</h2><dl>
+            <div><dt>Reference</dt><dd>REQ-@Model.Id</dd></div>
+            <div><dt>Date submitted</dt><dd>@(Model.DateRequested.HasValue ? Model.DateRequested.Value.ToString("dd MMMM yyyy") : "Not recorded")</dd></div>
+            <div><dt>Current status</dt><dd>@status</dd></div>
+            <div><dt>Requested by</dt><dd>@(string.IsNullOrWhiteSpace(Model.Requestor) ? "Not recorded" : Model.Requestor)</dd></div>
+        </dl></section><div class="request-help"><strong><i class="fas fa-info-circle" aria-hidden="true"></i> Stay in the loop</strong>Return to your dashboard to check the latest status of your requests. Requests can be edited while they are at the initial review stage.</div></aside>
+    </div>
+@Html.Partial("_RequestTimeline", (IEnumerable<Pgh.Workflow.RequestHistoryEntry>)ViewBag.History)
+</main>
+
+

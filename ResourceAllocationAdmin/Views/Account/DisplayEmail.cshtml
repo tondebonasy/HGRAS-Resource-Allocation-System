@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "Check your email";
+
+    var email = ViewBag.Email as string;
+    var message = ViewBag.Message as string
+        ?? (string.IsNullOrEmpty(email)
+            ? "Please check your email for a confirmation link."
+            : "Please check " + email + " for a confirmation link.");
+}
+
+<section>
+    <h2>@ViewBag.Title</h2>
+    <p>@message</p>
+
+    <p>
+        @Html.ActionLink("Back to sign in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+    </p>
+</section>

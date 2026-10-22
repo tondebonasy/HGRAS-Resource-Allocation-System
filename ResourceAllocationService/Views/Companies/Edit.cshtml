@@ -1,0 +1,15 @@
+﻿@model ResourceAllocationService.Models.Company
+@{ViewBag.Title="Organisation profile";}
+<main class="pgh-shell pgh-form"><p class="pgh-eyebrow">Your organisation</p><h1>Keep your team connected.</h1><p class="pgh-muted">Update the contact details used to coordinate your resource requests.</p><section class="pgh-panel">
+@using(Html.BeginForm("Edit","Companies",FormMethod.Post,new{enctype="multipart/form-data"})){
+ @Html.AntiForgeryToken() @Html.HiddenFor(m=>m.Id)
+ @Html.ValidationSummary(false,"",new{role="alert"})
+ <div class="pgh-field">@Html.LabelFor(m=>m.Name,"Organisation name")@Html.TextBoxFor(m=>m.Name,new{required="required",maxlength="50"})</div>
+ <div class="pgh-field-grid"><div class="pgh-field">@Html.LabelFor(m=>m.Email)@Html.TextBoxFor(m=>m.Email,new{type="email",maxlength="50",required="required"})</div><div class="pgh-field">@Html.LabelFor(m=>m.PhoneNumber,"Phone number")@Html.TextBoxFor(m=>m.PhoneNumber,new{type="tel",maxlength="50"})</div></div>
+ <div class="pgh-field-grid"><div class="pgh-field">@Html.LabelFor(m=>m.GroupHead,"Contact person")@Html.TextBoxFor(m=>m.GroupHead,new{maxlength="50"})</div><div class="pgh-field">@Html.LabelFor(m=>m.RegNumber,"Registration number")@Html.TextBoxFor(m=>m.RegNumber,new{maxlength="50"})</div></div>
+ <div class="pgh-field">@Html.LabelFor(m=>m.DateEstableshed,"Date established")@Html.TextBoxFor(m=>m.DateEstableshed,"{0:yyyy-MM-dd}",new{type="date"})</div>
+ <div class="pgh-field">@Html.LabelFor(m=>m.Address)@Html.TextAreaFor(m=>m.Address,new{maxlength="200"})</div>
+ <div class="pgh-field"><label for="file">Organisation image</label><input id="file" name="file" type="file" accept="image/png,image/jpeg,image/gif"/><small class="pgh-muted">JPG, PNG or GIF up to 5 MB. Leave blank to keep the current image.</small></div>
+ <div class="pgh-actions"><button class="pgh-button" type="submit">Save profile →</button><a class="pgh-button secondary" href="@Url.Action("Details",new{name=User.Identity.Name})">Cancel</a></div>
+}
+</section></main>

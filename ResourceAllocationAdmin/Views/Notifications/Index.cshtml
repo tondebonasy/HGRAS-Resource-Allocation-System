@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ResourceAllocationAdmin.Models.Notification>
+
+@{
+    ViewBag.Title = "";
+}
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Messages /</span> List</h4>
+    
+    <div class="card">
+        <h5 class="card-header">@ViewBag.Title</h5>
+        <div class="table-responsive text-nowrap">
+            <p style="margin-left:12px;" class="btn btn-info">
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </th>
+                  
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsEmail)
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                      
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsEmail)
+                        </td>
+                       
+                      
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+    </div>
+    

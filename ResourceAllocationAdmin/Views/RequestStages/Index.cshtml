@@ -1,0 +1,3 @@
+﻿@model IEnumerable<ResourceAllocationAdmin.Models.RequestStage>
+@{ViewBag.Title="System definitions";}
+<main class="container-xxl container-p-y"><p class="pgh-eyebrow">Workflow configuration</p><h1>RequestStages</h1><p class="pgh-muted">These definitions are fixed to protect role-specific transitions and stock allocation.</p><section class="pgh-panel"><ul>@foreach(var item in Model){<li style="padding:12px">@item.Name</li>}</ul></section></main>

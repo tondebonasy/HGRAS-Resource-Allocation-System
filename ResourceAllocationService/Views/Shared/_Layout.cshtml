@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <meta name="description" content="The Hospital Group Resource Allocation System resource allocation portal. Request hospital resources, follow progress and manage your organisation's requests." />
+ <title>@ViewBag.Title | HGRAS Resource Allocation</title><link rel="icon" type="image/png" href="@Url.Content("~/Content/img/hgras/logo.png")" />
+ <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+ <link href="~/Content/icons-pack/fontawesome-5/css/all.css" rel="stylesheet" />
+ <link href="~/Content/css/main.min.css" rel="stylesheet" />
+ <link href="~/Content/pgh-ui.css?v=20261021-hgras" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/Content/hgras-charts.css")" /><script defer src="@Url.Content("~/Content/hgras-charts.js")"></script><link rel="stylesheet" href="@Url.Content("~/Content/hgras-network.css")" /><link rel="stylesheet" href="@Url.Content("~/Content/hgras-design.css?v=20261022")" /></head>
+<body class="pgh-public">
+ <a class="skip-link" href="#main-content">Skip to content</a>
+ <div class="pgh-utility"><div class="pgh-wrap"><span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Hospital Group Resource Allocation System <span class="utility-divider">/</span> Connected hospital groups</span></div></div>
+ <header class="pgh-nav">
+  <div class="pgh-wrap pgh-nav-inner">
+   <a class="pgh-brand" href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Content/img/logo.png")" alt="HGRAS Healthcare Network logo" /><span><strong>HGRAS</strong><small>Resource Allocation Portal</small></span></a>
+   <button class="pgh-menu-toggle" type="button" aria-expanded="false" aria-controls="pgh-navigation"><i class="fas fa-bars" aria-hidden="true"></i><span>Menu</span></button>
+   <nav class="pgh-nav-links" id="pgh-navigation" aria-label="Main navigation">
+    <a href="@Url.Action("Index", "Home")" class="@(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "is-current" : "")">Home</a>
+    <a href="@Url.Action("About", "Home")">About HGRAS</a>
+    <a href="@Url.Action("Index", "Network")">Hospital network</a>
+    <a href="@Url.Action("HelpCenter", "Home")">How it works</a>
+    @if (Request.IsAuthenticated) {
+     <a href="@Url.Action("Index", "Network")">Dashboard</a>
+     <a href="@Url.Action("Index", "Manage")">Account</a>
+     using (Html.BeginForm("LogOff", "Account", FormMethod.Post)) { @Html.AntiForgeryToken()<button class="pgh-signout" type="submit">Sign out</button> }
+    } else {
+     <a href="@Url.Action("Login", "Account")">Sign in</a>
+     <a class="pgh-button" href="@Url.Action("Register", "Account")">Register organisation <span aria-hidden="true">↗</span></a>
+    }
+   </nav>
+  </div>
+ </header>
+ <div id="main-content" tabindex="-1">@RenderBody()</div>
+ <footer class="pgh-site-footer">
+  <div class="pgh-wrap pgh-footer-main">
+   <div class="pgh-footer-brand"><img src="@Url.Content("~/Content/img/logo.png")" alt="HGRAS logo" /><h2>Supporting the people<br />who care for our nation.</h2><p>Hospital Group Resource Allocation System<br />Resource Allocation Portal</p></div>
+   <div><h3>Your portal</h3><a href="@Url.Action("Create", "ResourceRequests")">Request resources</a><a href="@Url.Action("Details", "Companies", new { name = User.Identity.Name })">Track a request</a><a href="@Url.Action("Index", "Manage")">Manage your account</a></div>
+   <div><h3>Here to help</h3><a href="@Url.Action("HelpCenter", "Home")">How it works</a><a href="@Url.Action("Contact", "Home")">Contact information</a></div>
+  </div>
+  <div class="pgh-wrap pgh-footer-bottom"><span>&copy; @DateTime.Now.Year Hospital Group Resource Allocation System</span><span>Connected hospitals. Better resource decisions.</span></div>
+ </footer>
+ <script>
+ (function(){var toggle=document.querySelector('.pgh-menu-toggle'),nav=document.getElementById('pgh-navigation');if(toggle&&nav){toggle.addEventListener('click',function(){var open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open);});document.addEventListener('keydown',function(e){if(e.key==='Escape'){toggle.setAttribute('aria-expanded','false');nav.classList.remove('is-open');}});}})();
+ </script>
+ @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+

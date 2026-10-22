@@ -1,0 +1,44 @@
+﻿@model ResourceAllocationService.Models.Request
+@{ var editing = Model.Id != 0; }
+<main class="pgh-shell pgh-form">
+ <p class="pgh-eyebrow">Resource requests</p>
+ <h1>@(editing ? "Edit your request" : "What does your organisation need?")</h1>
+ <p class="pgh-muted">Choose your resources, add quantities, and tell us how they will be used.</p>
+ <div class="pgh-panel">
+ @using (Html.BeginForm(editing ? "Edit" : "Create", "ResourceRequests", FormMethod.Post)) {
+  @Html.AntiForgeryToken()
+  @Html.HiddenFor(m => m.Id)
+  @Html.ValidationSummary(false, "Please check your request.", new { role = "alert" })
+  <div class="pgh-field">
+   @Html.LabelFor(m => m.Description, "Request description")
+   @Html.TextBoxFor(m => m.Description, new { required = "required", maxlength = "500", placeholder = "e.g. Supplies for the outpatient department" })
+   @Html.ValidationMessageFor(m => m.Description)
+  </div>
+  <div class="pgh-field">
+   @Html.LabelFor(m => m.additionalInfo, "Additional information (optional)")
+   @Html.TextAreaFor(m => m.additionalInfo, new { maxlength = "250", placeholder = "Include any context that will help the team review your request." })
+  </div>
+  <fieldset><legend style="font-size:18px;font-weight:650">Resources and quantities</legend>
+   <p class="pgh-muted">Select at least one resource. Quantities must be positive whole numbers.</p>
+   <div class="pgh-grid">
+   @{
+    var resources = (List<ResourceAllocationService.Models.Resource>)ViewBag.Resources;
+    if (resources.Count == 0) { <p>No resources are listed yet. Please contact an administrator.</p> }
+    foreach (var item in resources) {
+     var existing = Model.ResourceRequests.FirstOrDefault(r => r.resourceId == item.id);
+     var selected = Request.HttpMethod == "POST" ? Request.Form[item.id.ToString()] != null : existing != null;
+     var quantity = Request.HttpMethod == "POST" ? Request.Form[item.id + "_Count"] : (existing == null ? "1" : existing.Count.ToString());
+     <div class="pgh-resource">
+      <input type="checkbox" id="resource-@item.id" name="@item.id" value="selected" checked="@selected" />
+      <label for="resource-@item.id">@item.Name</label>
+      <input type="number" id="quantity-@item.id" name="@(item.id + "_Count")" min="1" max="2147483647" step="1" value="@quantity" aria-label="Quantity for @item.Name" />
+     </div>
+    }
+   }
+   </div>
+  </fieldset>
+  <div class="pgh-actions"><button class="pgh-button" type="submit">@(editing ? "Save changes" : "Submit request")</button><a class="pgh-button secondary" href="@Url.Action("Details", "Companies", new { name = User.Identity.Name })">Cancel</a></div>
+ }
+ </div>
+</main>
+

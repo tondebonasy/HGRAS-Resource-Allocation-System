@@ -1,0 +1,45 @@
+@model ResourceAllocationAdmin.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<h2>@(ViewBag.FirstAdministrator == true ? "Create the first administrator" : "Create a staff account")</h2><p>Once claimed, only an administrator can create staff accounts and assign roles.</p>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+       
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="row">
+            @Html.LabelFor(m => m.Email, new { @class = " col-form-label" })
+            <div class="col-md-12">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Password, new { @class = "col-form-label" })
+            <div class="col-md-12">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = " col-form-label" })
+            <div class="col-md-12">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-md-10">
+                <input type="submit" value="Register" class="btn btn-outline-dark" />
+            </div>
+        </div>
+    }
+<p class="text-center">
+    <span>Already Have An Account?</span>
+    <a href="~/Account/Login">
+        <span>Login</span>
+    </a>
+</p>
+
+

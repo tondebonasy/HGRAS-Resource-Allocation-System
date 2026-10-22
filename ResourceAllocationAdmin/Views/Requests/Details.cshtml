@@ -1,0 +1,8 @@
+﻿@model ResourceAllocationAdmin.Models.Request
+@{ ViewBag.Title="Request #"+Model.Id;Layout="~/Views/Shared/EditsLayout.cshtml"; }
+@if(TempData["Success"]!=null){<div class="alert alert-success" role="status">@TempData["Success"]</div>}
+<div class="pgh-section-title"><div><p class="pgh-eyebrow">Request #@Model.Id</p><h2>@Model.Description</h2><p class="pgh-muted">@(Model.Company==null?"Unassigned organisation":Model.Company.Name) · @Model.DateRequested</p></div><span class="org-badge">@(Model.RequestStage==null?"Unassigned":Model.RequestStage.Name)</span></div>
+<p><strong>Requestor:</strong> @Model.Requestor</p><p style="white-space:pre-wrap">@Model.additionalInfo</p>
+<div class="table-responsive"><table class="table"><thead><tr><th>Resource</th><th>Requested quantity</th><th>Available stock</th></tr></thead><tbody>@foreach(var item in Model.ResourceRequests){<tr><td>@(item.Resource==null?"Unavailable":item.Resource.Name)</td><td>@item.Count</td><td>@(item.Resource==null?"—":item.Resource.Quantity.ToString())</td></tr>}</tbody></table></div>
+<div class="pgh-actions">@if(ViewBag.CanTransition==true){<a class="pgh-button" href="@Url.Action("Edit",new{id=Model.Id})">Review next stage →</a>}<a class="pgh-button secondary" href="@Url.Action("Index")">Back to requests</a></div>
+@Html.Partial("_RequestTimeline",(IEnumerable<Pgh.Workflow.RequestHistoryEntry>)ViewBag.History)
