@@ -46,7 +46,7 @@ Internet access is needed for the first NuGet package restore. Node.js is not re
 
 ## Set up and run
 
-Clone or download this repository, open a PowerShell terminal in its root folder, and run:
+Clone or download this repository to a short folder such as `C:\src\HGRAS` to avoid Windows path-length limits in older NuGet tooling. Open a PowerShell terminal in that folder and run:
 
 ```powershell
 pwsh -File tools/Start-System.ps1
